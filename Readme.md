@@ -17,6 +17,7 @@ Framework is considered as a Release Candidate version.
 - Newtonsoft.Json (10.0.3);
 - Xamarin.UITest (2.2.2);
 - NUnit (3.9.0);
+- ASP.NET Core (2.0.9), for the Mock Server component;
 
 ### Platform Dependencies
 
