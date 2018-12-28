@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DataMockerSample.Controls;assembly=DataMockerSample"
+             xmlns:resources="clr-namespace:DataMockerSample.Resources;assembly=DataMockerSample"
+             x:Class="DataMockerSample.Pages.ItemsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding OpenItemCommand}" Text="{x:Static resources:AppResources.ItemsPage_AddItemButtonText}"></ToolbarItem>
+        <ToolbarItem Command="{Binding LogoutCommand}" Text="{x:Static resources:AppResources.ItemsPage_LogoutButtonText}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+            <controls:ExtendedListView IsPullToRefreshEnabled="True"
+                      AbsoluteLayout.LayoutFlags="All"
+                      ItemsSource="{Binding Items}"
+                      AbsoluteLayout.LayoutBounds=".5,.5,1,1"
+                      ItemClickCommand="{Binding OpenItemCommand}"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsLoading}"
+                      BackgroundColor="#E8EAF6">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}" Detail="{Binding Text}" TextColor="#cbb293"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ExtendedListView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

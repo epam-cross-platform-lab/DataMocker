@@ -1,0 +1,7 @@
+﻿{
+  "Url": "http://localhost:5000/api",
+  "Delay": 150,
+  "UseEmbeddedDevice": true,
+  "AndroidBackdoorMethod": "SetupEnvironmentBackdoors",
+  "IosBackdoorMethod": "setupEnvironmentBackdoors:"
+}

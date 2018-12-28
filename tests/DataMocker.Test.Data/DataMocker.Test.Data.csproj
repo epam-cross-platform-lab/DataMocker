@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\delete_root_item.json" />
+    <None Remove="Data\fr_FR\delete_language_item.json" />
+    <None Remove="Data\fr_FR\post_language_item%282F70BBC8%29.json" />
+    <None Remove="Data\fr_FR\post_language_item%28FC5FB513%29.json" />
+    <None Remove="Data\fr_FR\put_language_item.json" />
+    <None Remove="Data\get_root_item%287647489A%29.json" />
+    <None Remove="Data\get_root_item.json" />
+    <None Remove="Data\MockResourceTests\delete_ts_item.json" />
+    <None Remove="Data\MockResourceTests\get_ts_item.json" />
+    <None Remove="Data\MockResourceTests\ItemFromTestFolder\delete_ts_test_item.json" />
+    <None Remove="Data\MockResourceTests\ItemFromTestFolder\post_ts_test_item%286C5258F5%29.json" />
+    <None Remove="Data\MockResourceTests\ItemFromTestFolder\post_ts_test_item%28725D6408%29.json" />
+    <None Remove="Data\MockResourceTests\ItemFromTestFolder\put_ts_test_item.json" />
+    <None Remove="Data\MockResourceTests\post_ts_item%285710D5B0%29.json" />
+    <None Remove="Data\MockResourceTests\post_ts_item%287FC50C02%29.json" />
+    <None Remove="Data\MockResourceTests\put_ts_item.json" />
+    <None Remove="Data\put_root_item.json" />
+    <None Remove="Data\SharedFolder\get_shared_item.json" />
+    <None Remove="Data\SharedFolder\get_shared_item%281D22804A%29.json" />
+    <None Remove="Data\SharedFolder\ru\post_shared_item.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\delete_language_ts_test_item.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\delete_language_ts_test_item%28F661DD44%29.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\get_language_ts_test_item.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\get_language_ts_test_item%28F661DD44%29.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\post_language_ts_test_item%2846752AF7%29.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\post_language_ts_test_item%28E4A5B2B9%29.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\put_language_ts_test_item.json" />
+    <None Remove="Data\MockResourceTests\LangMockResourceTests\put_language_ts_test_item%28EEB72ADE%29.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\delete_root_item%287647489A%29.json" />
+    <EmbeddedResource Include="Data\delete_root_item.json" />
+    <EmbeddedResource Include="Data\fr_FR\delete_language_item%282469A755%29.json" />
+    <EmbeddedResource Include="Data\fr_FR\delete_language_item.json" />
+    <EmbeddedResource Include="Data\fr_FR\get_language_item%282469A755%29.json" />
+    <EmbeddedResource Include="Data\fr_FR\post_language_item%28DFDB8FD1%29.json" />
+    <EmbeddedResource Include="Data\fr_FR\post_language_item%28F3FA51D7%29.json" />
+    <EmbeddedResource Include="Data\fr_FR\put_language_item%28F1039908%29.json" />
+    <EmbeddedResource Include="Data\fr_FR\put_language_item.json" />
+    <EmbeddedResource Include="Data\get_root_item%28010D49C0%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\delete_ts_item%28A6FCF305%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\delete_ts_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\delete_language_ts_item(6E06DB38).json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\delete_language_ts_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\get_language_ts_item(6E06DB38).json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\get_language_ts_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\post_language_ts_item(1BCF9554).json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\post_language_ts_item(BD5AC710).json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\put_language_ts_item(D3818710).json" />
+    <EmbeddedResource Include="Data\MockResourceTests\fr_FR\put_language_ts_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\delete_ts_test_item%288E3C58CE%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\delete_ts_test_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\post_ts_test_item%28DA74112E%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\post_ts_test_item%2836F287BE%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\put_ts_test_item%2802F18355%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\put_ts_test_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\post_ts_item%28F1360EEF%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\post_ts_item%286376F4F5%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\put_ts_item%285205C274%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\put_ts_item.json" />
+    <EmbeddedResource Include="Data\post_root_item%286008B6B2%29.json" />
+    <EmbeddedResource Include="Data\post_root_item%2862072F62%29.json" />
+    <EmbeddedResource Include="Data\get_root_item(7647489A).json" />
+    <EmbeddedResource Include="Data\get_root_item.json" />
+    <EmbeddedResource Include="Data\fr_FR\get_language_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\get_ts_item%28A6FCF305%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\get_ts_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\get_ts_test_item%288E3C58CE%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\ItemFromTestFolder\get_ts_test_item.json" />
+    <EmbeddedResource Include="Data\put_root_item%2856D55B4E%29.json" />
+    <EmbeddedResource Include="Data\put_root_item.json" />
+    <EmbeddedResource Include="Data\SharedFolder\get_shared_item.json" />
+    <EmbeddedResource Include="Data\SharedFolder\get_shared_item%2898447FEA%29.json" />
+    <EmbeddedResource Include="Data\SharedFolder\ru\post_shared_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\delete_language_ts_test_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\delete_language_ts_test_item%28F661DD44%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\get_language_ts_test_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\get_language_ts_test_item%28F661DD44%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\post_language_ts_test_item%2846752AF7%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\post_language_ts_test_item%28E4A5B2B9%29.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\put_language_ts_test_item.json" />
+    <EmbeddedResource Include="Data\MockResourceTests\LangMockResourceTests\put_language_ts_test_item%28EEB72ADE%29.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\SharedFolder\" />
+    <Folder Include="Data\SharedFolder\ru\" />
+    <Folder Include="Data\MockResourceTests\LangMockResourceTests\" />
+    <Folder Include="Data\MockResourceTests\ItemFromTestFolder\fr_FR\" />
+  </ItemGroup>
+</Project>

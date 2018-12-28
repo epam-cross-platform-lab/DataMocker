@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataMockerSample.Common\DataMockerSample.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\post_items%280F8A0734%29.json" />
+    <None Remove="Data\SharedFolder\post_items_2%288D64E378%29.json" />
+    <None Remove="Data\NonTestWork\post_items_1%2800B34AB7%29.json" />
+    <None Remove="Data\NonTestWork\post_login%28662BDDC1%29.json" />
+    <None Remove="Data\NonTestWork\put_items_1%282C2AFE4E%29.json" />
+    <None Remove="Data\BaseTest\post_items_1%2800B34AB7%29.json" />
+    <None Remove="Data\BaseTest\post_login%28662BDDC1%29.json" />
+    <None Remove="Data\BaseTest\put_items_1%282C2AFE4E%29.json" />
+    <None Remove="Data\BaseTest\MobileTest\ru\post_items%280F8A0734%29.json" />
+    <None Remove="Data\BaseTest\MobileTest\ru\post_items_1%2800B34AB7%29.json" />
+    <None Remove="Data\BaseTest\MobileTest\ru\post_login%28DBCECF0E%29.json" />
+    <None Remove="Data\BaseTest\MobileTest\ru\put_items_1%28EEAE13A6%29.json" />
+    <None Remove="Data\BaseTest\CustomDemoTests\ShowCatchedRequest\post_items.json" />
+    <None Remove="Data\BaseTest\CustomDemoTests\ShowCatchedRequest\post_login.json" />
+    <None Remove="Data\BaseTest\CustomDemoTests\ShowChangeDataOnFly\post_items%280F8A0734%29.json" />
+    <None Remove="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282211C57F%29.json" />
+    <None Remove="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282C2AFE4E%29.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\post_items%280F8A0734%29.json" />
+    <EmbeddedResource Include="Data\SharedFolder\post_items_2%288D64E378%29.json" />
+    <EmbeddedResource Include="Data\NonTestWork\post_items_1%2800B34AB7%29.json" />
+    <EmbeddedResource Include="Data\NonTestWork\post_login%28662BDDC1%29.json" />
+    <EmbeddedResource Include="Data\NonTestWork\put_items_1%282C2AFE4E%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\post_items_1%2800B34AB7%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\post_login%28662BDDC1%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\put_items_1%282C2AFE4E%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\MobileTest\ru\post_items%280F8A0734%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\MobileTest\ru\post_items_1%2800B34AB7%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\MobileTest\ru\post_login%28DBCECF0E%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\MobileTest\ru\put_items_1%28EEAE13A6%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowCatchedRequest\post_items.json" />
+    <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowCatchedRequest\post_login.json" />
+    <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowChangeDataOnFly\post_items%280F8A0734%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282211C57F%29.json" />
+    <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282C2AFE4E%29.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DataMocker.Mock" Version="1.0.0" />
+  </ItemGroup>
+</Project>

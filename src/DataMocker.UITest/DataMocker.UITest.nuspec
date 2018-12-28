@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DataMocker.UITest</id>
+    <version>1.0.0</version>
+    <authors>EPAM Systems,Inc.</authors>
+    <owners>EPAM Systems,Inc.</owners>
+    <licenseUrl>https://www.epam.com/privacy-policy</licenseUrl>
+    <projectUrl>https://git.epam.com/Andrei_Melnikau1/DataMocker</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
+    <releaseNotes>
+      - Added main mock date logic;
+      - Added test and data localization;
+      - Added shared folders logic;
+      - Added mock server;
+      - Added url routing feature;
+    </releaseNotes>
+    <copyright>© 2018 EPAM Systems, Inc. All Rights Reserved.</copyright>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Xamarin.UITest" version="2.2.2" />
+        <dependency id="NUnit" version="3.9.0" />
+        <dependency id="Newtonsoft.Json" version="9.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Release/DataMocker.UITest.dll" target="lib/net461"/>
+    <file src="bin/Release/DataMocker.UITest.xml" target="lib/net461"/>
+    <file src="MockFrameworkConfiguration.json" target="content"/>
+  </files>
+</package>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:DataMockerSample.Resources;assembly=DataMockerSample"
+             x:Class="DataMockerSample.Pages.EditItemPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Vertical" 
+                         HorizontalOptions="FillAndExpand" 
+                         VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.EditItemPage_TitleLabelText}" 
+                       HorizontalOptions="StartAndExpand" />
+                <Entry Text="{Binding Item.Title}"
+                       HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+            <StackLayout Orientation="Vertical" 
+                         HorizontalOptions="FillAndExpand" 
+                         VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.EditItemPage_DescriptionLabelText}" 
+                       HorizontalOptions="StartAndExpand" />
+                <Entry Text="{Binding Item.Text}"
+                       AutomationId="ItemDescription"
+                       HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
