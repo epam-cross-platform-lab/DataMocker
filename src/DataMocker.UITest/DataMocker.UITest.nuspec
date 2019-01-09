@@ -3,19 +3,21 @@
   <metadata>
     <id>DataMocker.UITest</id>
     <version>1.0.2</version>
-    <authors>EPAM Systems,Inc.</authors>
+    <authors>Andrei Melnikau, Dzianis Zhukouski</authors>
     <owners>EPAM Systems,Inc.</owners>
-    <licenseUrl>https://www.epam.com/privacy-policy</licenseUrl>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/epam-xamarin-lab/DataMocker</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
-    <releaseNotes>
+   <tags>xamarin, android, xamarin.android, monodroid, ios, xamarin.ios, monotouch, xamarin.uitest, uitest</tags>
+   <releaseNotes>
       - Applying Apache license
+      - Xamarin.UITest was updated to 2.2.7
     </releaseNotes>
-    <copyright>© 2018 EPAM Systems, Inc. All Rights Reserved.</copyright>
+    <copyright>© 2019 EPAM Systems, Inc. All Rights Reserved.</copyright>
     <dependencies>
       <group targetFramework="net461">
-        <dependency id="Xamarin.UITest" version="2.2.2" />
+        <dependency id="Xamarin.UITest" version="2.2.7" />
         <dependency id="NUnit" version="3.9.0" />
         <dependency id="Newtonsoft.Json" version="9.0.1" />
       </group>

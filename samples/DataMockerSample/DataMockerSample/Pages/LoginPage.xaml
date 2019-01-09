@@ -13,20 +13,20 @@
                          Margin="16" 
                          AbsoluteLayout.LayoutBounds=".5,.5,1,.5"
                          BackgroundColor="White">
-                <Entry VerticalOptions="CenterAndExpand"
+                <Entry VerticalOptions="Start"
                         HorizontalOptions="FillAndExpand"
                         Text="{Binding UserName, Mode=TwoWay}"
                         Margin="16"
                         HeightRequest="48"
                         Placeholder="{x:Static resources:AppResources.LoginPage_UserEntryPlaceholder}"/>
-                <Entry VerticalOptions="CenterAndExpand"
+                <Entry VerticalOptions="Start"
                         HorizontalOptions="FillAndExpand"
                         Text="{Binding Password, Mode=TwoWay}"
                         IsPassword="True"
                         Margin="16"
                        HeightRequest="48"
                         Placeholder="{x:Static resources:AppResources.LoginPage_PasswordPlaceholder}"/>
-                <Button VerticalOptions="EndAndExpand"
+                <Button VerticalOptions="Start"
                         HorizontalOptions="FillAndExpand"
                         Text="{x:Static resources:AppResources.LoginPage_LoginButtonText}"
                         HeightRequest="48"

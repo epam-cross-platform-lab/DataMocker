@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -29,14 +30,14 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.UITest">
-      <HintPath>..\packages\Xamarin.UITest.2.2.2\lib\net45\Xamarin.UITest.dll</HintPath>
+      <HintPath>..\packages\Xamarin.UITest.2.2.7\lib\net45\Xamarin.UITest.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="DataMocker.UITest">
-      <HintPath>..\packages\DataMocker.UITest.1.0.0\lib\net461\DataMocker.UITest.dll</HintPath>
+      <HintPath>..\packages\DataMocker.UITest.1.0.2\lib\net461\DataMocker.UITest.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +58,6 @@
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Constants\LoginScreen.cs" />
     <Compile Include="BaseTest.cs" />
-    <Compile Include="CustomDemoTests.cs" />
     <Compile Include="MobileTest.cs" />
     <Compile Include="RuMobileTest.cs" />
     <Compile Include="Resources\TestResources.Designer.cs">
@@ -68,9 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="MockFrameworkConfiguration.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="MockFrameworkConfiguration.json" />
   </ItemGroup>
     <ItemGroup>
     <EmbeddedResource Include="Resources\TestResources.resx">
