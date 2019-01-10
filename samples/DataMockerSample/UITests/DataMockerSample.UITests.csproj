@@ -68,7 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="MockFrameworkConfiguration.json" />
+    <None Include="MockFrameworkConfiguration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
     <ItemGroup>
     <EmbeddedResource Include="Resources\TestResources.resx">
