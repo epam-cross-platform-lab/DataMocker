@@ -46,6 +46,6 @@
     <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282C2AFE4E%29.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DataMocker.Mock" Version="1.0.0" />
+    <PackageReference Include="DataMocker.Mock" Version="1.0.2" />
   </ItemGroup>
 </Project>

@@ -50,7 +50,7 @@ namespace DataMockerSample
             var builder = new ContainerBuilder();
             if (string.IsNullOrWhiteSpace(environmentArguments))
             {
-                environmentArguments = "{\"TestName\":\"ShowChangeDataOnFly\",\"TestScenario\":[\"NonTestWork\"],\"SharedFolderPath\":[],\"Delay\":500,\"Language\":null}";
+                environmentArguments = "{\"TestName\":\"ShowChangeDataOnFly\",\"TestScenario\":[\"NonTestWork\"],\"SharedFolderPath\":[],\"Delay\":500,\"Language\":null,\"RemoteUrl\": \"http://localhost:5000/api\"}";
             }
             var api = Mock.MockDataComponent.GetMockApi(environmentArguments);
             builder.RegisterInstance(api).As<IRestApi>();

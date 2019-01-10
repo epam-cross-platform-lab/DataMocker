@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
-    <PackageReference Include="Autofac" Version="4.6.2" />
-    <PackageReference Include="DataMocker.Mock" Version="1.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="DataMocker.Mock" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataMockerSample.Common\DataMockerSample.Common.csproj" />

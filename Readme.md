@@ -10,6 +10,7 @@ Framework is considered as a Release Candidate version.
 
 ### Authors
 
+- Dzianis Zhukouski , EPAM Systems.
 - Andrei Melnikau, EPAM Systems.
 
 ### External Dependencies
@@ -37,8 +38,8 @@ git clone https://github.com/epam-xamarin-lab/DataMocker.git
 
 ##### Install nuget packages:
 
-- DataMocker.UITest, into your Xamarin.UITest-dependent project
-- DataMocker.Mock, into your native and platform-agnostic projects where you will embed your data samples (if presented)
+- [DataMocker.UITest](https://www.nuget.org/packages/DataMocker.UITest/), into your Xamarin.UITest-dependent project
+- [DataMocker.Mock](https://www.nuget.org/packages/DataMocker.Mock/), into your native and platform-agnostic projects where you will embed your data samples (if presented)
 
 ##### Mock your Api service layer with Mock data service (you should use `MockHttpHandler` for your `HttpClient`);
 

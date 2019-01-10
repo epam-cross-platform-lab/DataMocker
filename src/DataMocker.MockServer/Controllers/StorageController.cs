@@ -26,14 +26,13 @@ namespace DataMocker.MockServer.Controllers
 {
     public class StorageController : Controller
     {
-        private const string RootPath = @"DataMocker\samples\DataMockerDemoApp.Mock\Data";
+        private const string PathToMockData = "samples/DataMockerSample/DataMockerSample.Mock/Data";
 
         [Route("api/")]
         [HttpPost]
         public IActionResult Post([FromBody] MockRequest request)
         {
             var clientVersion = Request.Headers["user-agent"].ToString();
-
             var serverVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             if (clientVersion != serverVersion)
             {
@@ -41,7 +40,6 @@ namespace DataMocker.MockServer.Controllers
             }
             var mockResource = new MockResource(ResourceStream(),request); 
             RequestToConsole(request);
-
             using (var stream = mockResource.ToStream())
             {
                 if (stream == null)
@@ -91,7 +89,7 @@ namespace DataMocker.MockServer.Controllers
 
         private IResourceStream ResourceStream()
         {
-            return new FileResourceStream(RootPath);
+            return new FileResourceStream(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, PathToMockData));
         }
     }
 }
