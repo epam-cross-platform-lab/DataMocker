@@ -54,12 +54,10 @@ namespace DataMocker.Mock.GraphQL
             base.Initialize(args);
 
             var environmentArguments = Newtonsoft.Json.JsonConvert.DeserializeObject<GraphQLEnvironmentArgs>(args);
-            if (environmentArguments == null)
+            if (environmentArguments != null)
             {
-                return;
+                InitializeWithEnvironmentArgs(environmentArguments);
             }
-            InitializeWithEnvironmentArgs(environmentArguments);
-
         }
 
         /// <summary>

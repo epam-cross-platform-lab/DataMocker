@@ -88,12 +88,11 @@ namespace DataMocker.Mock
             }
 
             var environmentArguments = Newtonsoft.Json.JsonConvert.DeserializeObject<EnvironmentArgs>(args);
-            if (environmentArguments == null)
+            if (environmentArguments != null)
             {
-                return;
+                InitializeWithEnvironmentArgs(environmentArguments);
             }
 
-            InitializeWithEnvironmentArgs(environmentArguments);
         }
 
         /// <summary>
