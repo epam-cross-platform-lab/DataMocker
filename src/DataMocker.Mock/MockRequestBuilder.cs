@@ -22,18 +22,35 @@ using DataMocker.SharedModels.Resources;
 
 namespace DataMocker.Mock
 {
-    internal class MockRequestBuilder
+    /// <summary>
+    ///     Mock request builder.
+    /// </summary>
+    public class MockRequestBuilder
     {
         private readonly MockEnvironmentConfig _appEnvironmentConfig;
 
-        internal string RemoteUrl => _appEnvironmentConfig.RemoteUrl;
+        /// <summary>
+        ///     Gets the remote URL.
+        /// </summary>
+        /// <value>The remote URL.</value>
+        public string RemoteUrl => _appEnvironmentConfig.RemoteUrl;
 
-        internal MockRequestBuilder(MockEnvironmentConfig appEnvironmentConfig)
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockRequestBuilder"/> class.
+        /// </summary>
+        /// <param name="appEnvironmentConfig">App environment config.</param>
+        public MockRequestBuilder(MockEnvironmentConfig appEnvironmentConfig)
         {
             _appEnvironmentConfig = appEnvironmentConfig;
         }
 
-        internal MockRequest MockRequest(HttpRequestMessage message, bool checkRouting)
+        /// <summary>
+        ///     Creates new instance of MockRequest.
+        /// </summary>
+        /// <returns>The <see cref="T:DataMocker.Mock.MockRequest"/>.</returns>
+        /// <param name="message">Message.</param>
+        /// <param name="checkRouting">If set to <c>true</c> check routing.</param>
+        public virtual MockRequest MockRequest(HttpRequestMessage message, bool checkRouting)
         {
             return ParseUrlToMockRequest(
                 message.RequestUri,

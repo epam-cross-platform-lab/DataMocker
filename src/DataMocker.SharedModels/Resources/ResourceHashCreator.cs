@@ -18,6 +18,7 @@ using DataMocker.SharedModels.Services;
 
 [assembly: InternalsVisibleTo("DataMocker.Mock")]
 [assembly: InternalsVisibleTo("DataMocker.MockServer")]
+[assembly: InternalsVisibleTo("DataMocker.Mock.GraphQL")]
 namespace DataMocker.SharedModels.Resources
 {
     internal class ResourceHashCreator

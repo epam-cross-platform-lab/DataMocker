@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>DataMocker.UITest</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>Andrei Melnikau, Dzianis Zhukouski</authors>
     <owners>EPAM Systems,Inc.</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -11,14 +11,14 @@
     <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
    <tags>xamarin, android, xamarin.android, monodroid, ios, xamarin.ios, monotouch, xamarin.uitest, uitest</tags>
    <releaseNotes>
-      - Applying Apache license
-      - Xamarin.UITest was updated to 2.2.7
+      - fixed NUnit version for correct working in VS 17/19
+      - adapted for working with GraphQL queries
     </releaseNotes>
     <copyright>© 2019 EPAM Systems, Inc. All Rights Reserved.</copyright>
     <dependencies>
       <group targetFramework="net461">
         <dependency id="Xamarin.UITest" version="2.2.7" />
-        <dependency id="NUnit" version="3.9.0" />
+        <dependency id="NUnit" version="2.6.4" />
         <dependency id="Newtonsoft.Json" version="9.0.1" />
       </group>
     </dependencies>

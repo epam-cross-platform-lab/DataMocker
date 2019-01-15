@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>DataMocker.Mock</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>Andrei Melnikau, Dzianis Zhukouski</authors>
     <owners>EPAM Systems,Inc.</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -11,7 +11,7 @@
     <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
     <tags>xamarin, android, xamarin.android, monodroid, ios, xamarin.ios, monotouch, xamarin.uitest, uitest</tags>
     <releaseNotes>
-      - Applying Apache license
+      - Adapted to working with DataMocker.Mock.GraphQL
     </releaseNotes>
     <copyright>© 2019 EPAM Systems, Inc. All Rights Reserved.</copyright>
     <dependencies>
