@@ -63,6 +63,16 @@ namespace DataMocker.Mock
                 message.Content?.ReadAsStringAsync()?.Result);
         }
 
+        /// <summary>
+        ///     Generates mock file name.
+        /// </summary>
+        /// <returns>The name.</returns>
+        /// <param name="url">URL.</param>
+        protected virtual string FileName(Uri url)
+        {
+            return string.Join("_", url.Segments.Select(s => s.Trim('/')));
+        }
+
         private MockRequest ParseUrlToMockRequest(Uri uri,
             string httpMethod,
             IList<string> testScenarioList,
@@ -101,11 +111,6 @@ namespace DataMocker.Mock
 
 
             return mockRequest;
-        }
-
-        private static string FileName(Uri url)
-        {
-            return string.Join("_", url.Segments.Select(s => s.Trim('/'))); 
         }
     }
 }

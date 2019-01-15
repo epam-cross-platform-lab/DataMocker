@@ -20,7 +20,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using DataMocker.SharedModels;
-using DataMocker.SharedModels.Resources;
 using Newtonsoft.Json;
 
 namespace DataMocker.Mock.GraphQL
@@ -30,7 +29,10 @@ namespace DataMocker.Mock.GraphQL
     /// </summary>
     public class GraphQLMockRequestBuilder : MockRequestBuilder
     {
+        private const string GraphQLQueryNamePattern = @"([a-zA-Z])\w+\(";
+
         private readonly GraphQLMockEnvironmentConfig _appEnvironmentConfig;
+        private string graphQLBody;
 
         /// <summary>
         ///     Gets the remote URL.
@@ -55,68 +57,28 @@ namespace DataMocker.Mock.GraphQL
         /// <param name="checkRouting">If set to <c>true</c> check routing.</param>
         public override MockRequest MockRequest(HttpRequestMessage message, bool checkRouting)
         {
-            if (string.Equals(message.RequestUri.AbsoluteUri, GraphQLUrl))
-            {
-                return ParseUrlToMockRequest(
-               message.RequestUri,
-               message.Method.Method,
-               _appEnvironmentConfig?.TestScenarios,
-               _appEnvironmentConfig?.TestName,
-               _appEnvironmentConfig?.SharedFolder,
-               _appEnvironmentConfig?.Language,
-               checkRouting,
-               message.Content?.ReadAsStringAsync()?.Result);
-            }
+            graphQLBody = message.Content?.ReadAsStringAsync()?.Result;
             return base.MockRequest(message, checkRouting);
         }
 
-        private MockRequest ParseUrlToMockRequest(Uri uri,
-            string httpMethod,
-            IList<string> testScenarioList,
-            string testName,
-            IList<string> sharedFoldersList,
-            string language,
-            bool checkRouting,
-            string body = null)
+        ///<inheritdoc/>
+        protected override string FileName(Uri url)
         {
-            var mockRequest = new MockRequest
+            if (string.Equals(url.AbsoluteUri, GraphQLUrl) && string.IsNullOrEmpty(graphQLBody))
             {
-                HttpMethod = httpMethod,
-                TestScenarioList = testScenarioList,
-                Language = language,
-                TestName = testName,
-                SharedFoldersList = sharedFoldersList,
-                Body = body ?? string.Empty,
-                FileName = FileName(uri, body),
-            };
-            mockRequest.Hash = ResourceHashCreator.Create(uri.AbsoluteUri, mockRequest.Body);
-
-            if (!checkRouting)
-            {
-                return mockRequest;
+                return GraphQLFileName(url);
             }
 
-            var routedUrl = Routes.RoutedNameByUrl(uri);
-
-            if (string.IsNullOrWhiteSpace(routedUrl))
-            {
-                return mockRequest;
-            }
-
-            mockRequest.FileName = routedUrl;
-            mockRequest.IsRouted = true;
-
-
-            return mockRequest;
+            return base.FileName(url);
         }
 
-        private static string FileName(Uri url, string body)
+        private string GraphQLFileName(Uri url)
         {
             var graphQLsegments = new List<string>();
-            GraphQLRequest requestBody = JsonConvert.DeserializeObject<GraphQLRequest>(body);
+            GraphQLRequest requestBody = JsonConvert.DeserializeObject<GraphQLRequest>(graphQLBody);
             if (!string.IsNullOrEmpty(requestBody.Query))
             {
-                var matches = Regex.Matches(requestBody.Query, @"([a-zA-Z])\w+\(");
+                var matches = Regex.Matches(requestBody.Query, GraphQLQueryNamePattern);
 
                 foreach (Match match in matches)
                 {
