@@ -38,7 +38,6 @@ namespace DataMocker
         /// <returns>A value of delay for requests to the mock server.</returns>
         public int Delay { get; set; }
 
-
         /// <summary>Get or set current culture info name of the runned test.</summary>
         /// <returns>Current culture info name of the runned test.</returns>
         public string Language { get; set; }

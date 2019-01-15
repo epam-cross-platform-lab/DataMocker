@@ -24,31 +24,63 @@ namespace DataMocker.Mock
     /// </summary>
     public class MockHandlerInitializer : IMockHandlerIntializer
     {
-        private readonly MockEnvironmentConfig _appEnvironmentConfig;
-        private readonly Assembly _resourceAssembly;
+        /// <summary>
+        ///     The app environment config.
+        /// </summary>
+        protected readonly MockEnvironmentConfig _appEnvironmentConfig;
+       
+        /// <summary>
+        ///     The resource assembly.
+        /// </summary>
+       protected readonly Assembly _resourceAssembly;
 
         /// <summary>Initializes a new instance of the <see cref="T:DataMocker.Mock.MockHandlerInitializer"></see> class.</summary>
         /// <param name="args">Arguments string from backdoor method.</param>
         /// <param name="assembly">Assembly with mock data.</param>
         public MockHandlerInitializer(string args, Assembly assembly)
+            : this(ToEnvironmentConfig(args), assembly)
         {
-            _appEnvironmentConfig = new MockEnvironmentConfig();
-            _appEnvironmentConfig.Initialize(args);
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockHandlerInitializer"/> class.
+        /// </summary>
+        /// <param name="environmentConfig">Environment config.</param>
+        /// <param name="assembly">Assembly.</param>
+        public MockHandlerInitializer(MockEnvironmentConfig environmentConfig, Assembly assembly)
+        {
+            _appEnvironmentConfig = environmentConfig;
             _resourceAssembly = assembly;
         }
 
         /// <summary>
-        ///  Gets a new instance of mock handler.
+        ///     Gets a new instance of mock handler.
         /// </summary>
         /// <returns>Mock handler based on <see cref="T:System.Net.Http.HttpMessageHandler"/>.</returns>
-        public HttpMessageHandler GetMockerHandler()
+        public virtual HttpMessageHandler GetMockerHandler()
         {
             if (!string.IsNullOrWhiteSpace(_appEnvironmentConfig.RemoteUrl))
             {
-                return new RemoteHostHttpHandler(new MockRequestBuilder(_appEnvironmentConfig));
+                return new RemoteHostHttpHandler(RequestBuilder());
             }
 
-            return new EmbeddedResourceHttpHandler(new MockRequestBuilder(_appEnvironmentConfig), _resourceAssembly);
+            return new EmbeddedResourceHttpHandler(RequestBuilder(), _resourceAssembly);
+        }
+
+        /// <summary>
+        ///     Creates new instance of MockRequestBuilder.
+        /// </summary>
+        /// <returns>The <see cref="T:System.Net.Http.MockRequestBuilder"/>.</returns>
+        protected virtual MockRequestBuilder RequestBuilder()
+        {
+            return new MockRequestBuilder(_appEnvironmentConfig);
+        }
+
+        private static MockEnvironmentConfig ToEnvironmentConfig(string args)
+        {
+            var config = new MockEnvironmentConfig();
+            config.Initialize(args);
+            return config;
         }
     }
 }

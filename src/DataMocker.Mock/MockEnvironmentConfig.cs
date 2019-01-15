@@ -13,41 +13,72 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("DataMocker.Tests.UnitTests")]
 namespace DataMocker.Mock
 {
     /// <summary>
-    /// Class representing a condition of test environment 
+    ///     Class representing a condition of test environment 
     /// </summary>
-    internal class MockEnvironmentConfig
+    public class MockEnvironmentConfig
     {
         /// <summary>
-        /// Gets a value of 
+        ///     Gets a value of request delay
         /// </summary>
         /// <returns></returns>
         public int RequestDelay { get; private set; }
 
+        /// <summary>
+        ///     Gets the name of the test.
+        /// </summary>
+        /// <value>The name of the test.</value>
         public string TestName { get; private set; }
 
+        /// <summary>
+        ///     Gets the remote URL.
+        /// </summary>
+        /// <value>The remote URL.</value>
         public string RemoteUrl { get; private set; }
 
+        /// <summary>
+        ///     Gets the test scenarios.
+        /// </summary>
+        /// <value>The test scenarios.</value>
         public IList<string> TestScenarios { get; private set; }
 
+        /// <summary>
+        ///     Gets the language.
+        /// </summary>
+        /// <value>The language.</value>
         public string Language { get; private set; }
 
+        /// <summary>
+        ///     Gets the shared folder.
+        /// </summary>
+        /// <value>The shared folder.</value>
         public IList<string> SharedFolder { get; private set; }
 
         /// <summary>
-        /// 
+        ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockEnvironmentConfig"/> class.
         /// </summary>
-        /// <param name="args"></param>
-        public void Initialize(string args)
+        public MockEnvironmentConfig() 
+        { 
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockEnvironmentConfig"/> class.
+        /// </summary>
+        /// <param name="args">Arguments.</param>
+        public MockEnvironmentConfig(EnvironmentArgs args) => InitializeWithEnvironmentArgs(args);
+
+        /// <summary>
+        ///     Initialize with specified args.
+        /// </summary>
+        /// <param name="args">Arguments.</param>
+        public virtual void Initialize(string args)
         {
             DefaultEnvironmentValues();
 
@@ -57,16 +88,24 @@ namespace DataMocker.Mock
             }
 
             var environmentArguments = Newtonsoft.Json.JsonConvert.DeserializeObject<EnvironmentArgs>(args);
-            if (environmentArguments == null)
+            if (environmentArguments != null)
             {
-                return;
+                InitializeWithEnvironmentArgs(environmentArguments);
             }
 
+        }
+
+        /// <summary>
+        ///     Initialize the specified environmentArguments.
+        /// </summary>
+        /// <param name="environmentArguments">Environment arguments.</param>
+        protected void InitializeWithEnvironmentArgs(EnvironmentArgs environmentArguments)
+        {
             TestName = environmentArguments.TestName;
             SharedFolder = environmentArguments.SharedFolderPath;
             TestScenarios = environmentArguments.TestScenario;
             RequestDelay = environmentArguments.Delay;
-            Language = environmentArguments.Language?.Replace("-","_");
+            Language = environmentArguments.Language?.Replace("-", "_");
 
             try
             {
@@ -74,7 +113,7 @@ namespace DataMocker.Mock
             }
             catch (Exception)
             {
-                CultureInfo.DefaultThreadCurrentUICulture = null; 
+                CultureInfo.DefaultThreadCurrentUICulture = null;
             }
 
 
@@ -84,7 +123,7 @@ namespace DataMocker.Mock
         private void DefaultEnvironmentValues()
         {
             TestName = string.Empty;
-            RequestDelay = 2000;
+            RequestDelay = 200;
         }
     }
 }
