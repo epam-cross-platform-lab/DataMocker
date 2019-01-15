@@ -42,7 +42,7 @@ namespace DataMocker.Mock.GraphQL
         /// <param name="environmentArgs">Environment arguments.</param>
         public GraphQLMockEnvironmentConfig(GraphQLEnvironmentArgs environmentArgs) : base(environmentArgs)
         {
-            Initialize(environmentArgs);
+            InitializeWithEnvironmentArgs(environmentArgs);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace DataMocker.Mock.GraphQL
             {
                 return;
             }
-            Initialize(environmentArguments);
+            InitializeWithEnvironmentArgs(environmentArguments);
 
         }
 
@@ -66,7 +66,7 @@ namespace DataMocker.Mock.GraphQL
         ///     Initialize with specified environmentArgs.
         /// </summary>
         /// <param name="environmentArgs">Environment arguments.</param>
-        protected void Initialize (GraphQLEnvironmentArgs environmentArgs) 
+        protected void InitializeWithEnvironmentArgs (GraphQLEnvironmentArgs environmentArgs) 
         {
             GraphQLUrl = environmentArgs.GraphQLUrl;
         }

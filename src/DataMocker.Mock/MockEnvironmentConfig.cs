@@ -72,7 +72,7 @@ namespace DataMocker.Mock
         ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockEnvironmentConfig"/> class.
         /// </summary>
         /// <param name="args">Arguments.</param>
-        public MockEnvironmentConfig(EnvironmentArgs args) => Initialize(args);
+        public MockEnvironmentConfig(EnvironmentArgs args) => InitializeWithEnvironmentArgs(args);
 
         /// <summary>
         ///     Initialize with specified args.
@@ -93,14 +93,14 @@ namespace DataMocker.Mock
                 return;
             }
 
-            Initialize(environmentArguments);
+            InitializeWithEnvironmentArgs(environmentArguments);
         }
 
         /// <summary>
         ///     Initialize the specified environmentArguments.
         /// </summary>
         /// <param name="environmentArguments">Environment arguments.</param>
-        protected void Initialize(EnvironmentArgs environmentArguments)
+        protected void InitializeWithEnvironmentArgs(EnvironmentArgs environmentArguments)
         {
             TestName = environmentArguments.TestName;
             SharedFolder = environmentArguments.SharedFolderPath;
