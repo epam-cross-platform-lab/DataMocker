@@ -36,13 +36,12 @@ namespace DataMocker.MockServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddLogging(b => b.AddConsole()).AddMvc()
+                .AddMvcOptions(options => options.EnableEndpointRouting = false);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-
             app.UseMvc();
         }
     }

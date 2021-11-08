@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +46,6 @@
     <EmbeddedResource Include="Data\BaseTest\CustomDemoTests\ShowTwoAnswersAtOnePage\put_items_1%282C2AFE4E%29.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DataMocker.Mock" Version="1.0.2" />
+    <PackageReference Include="DataMocker.Mock" Version="1.0.5" />
   </ItemGroup>
 </Project>
