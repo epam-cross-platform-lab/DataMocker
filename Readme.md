@@ -15,15 +15,15 @@ Framework is considered as a Release Candidate version.
 
 ### External Dependencies
 
-- Newtonsoft.Json (10.0.3);
-- Xamarin.UITest (2.2.2);
-- NUnit (3.9.0);
+- Newtonsoft.Json (13.0.1);
+- Xamarin.UITest (3.2.2);
+- NUnit (3.13.2);
 - ASP.NET Core (2.0.9), for the Mock Server component;
 
 ### Platform Dependencies
 
 DataMocker.Mock and DataMocker.SharedModels:
-- .NET Standart 2.0
+- .NET Standart 2.1
 
 DataMocker.UITest:
 - .NET Framework 4.6.1

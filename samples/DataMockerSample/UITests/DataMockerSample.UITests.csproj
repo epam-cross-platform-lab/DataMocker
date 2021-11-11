@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
+  <Import Project="..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props" Condition="Exists('..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props')" />
+  <Import Project="..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -26,19 +27,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DataMocker.UITest" Version="1.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
     <Reference Include="System" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.UITest">
-      <HintPath>..\packages\Xamarin.UITest.2.2.7\lib\net45\Xamarin.UITest.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="DataMocker.UITest">
-      <HintPath>..\packages\DataMocker.UITest.1.0.2\lib\net461\DataMocker.UITest.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Xamarin.UITest" Version="3.2.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\iOS\DataMockerSample.iOS.csproj">
@@ -66,12 +59,6 @@
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="MockFrameworkConfiguration.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
     <ItemGroup>
     <EmbeddedResource Include="Resources\TestResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -79,6 +66,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TestResources.ru.resx" />
   </ItemGroup>
+    <ItemGroup>
+      <Content Include="MockFrameworkConfiguration.json" />
+    </ItemGroup>
 
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.13.2\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props'))" />
+  </Target>
 </Project>

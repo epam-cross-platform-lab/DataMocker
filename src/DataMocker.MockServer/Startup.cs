@@ -1,5 +1,5 @@
 ﻿// =========================================================================
-// Copyright 2019 EPAM Systems, Inc.
+// Copyright 2021 EPAM Systems, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,13 +36,12 @@ namespace DataMocker.MockServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddLogging(b => b.AddConsole()).AddMvc()
+                .AddMvcOptions(options => options.EnableEndpointRouting = false);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-
             app.UseMvc();
         }
     }
