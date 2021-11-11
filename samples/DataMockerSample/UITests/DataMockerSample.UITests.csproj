@@ -27,23 +27,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataMocker.UITest, Version=1.0.7982.18008, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\DataMocker.UITest.1.0.4\lib\net461\DataMocker.UITest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
-      <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <PackageReference Include="DataMocker.UITest" Version="1.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
     <Reference Include="System" />
-    <Reference Include="Xamarin.UITest, Version=3.2.2.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Xamarin.UITest.3.2.2\lib\net45\Xamarin.UITest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <PackageReference Include="Xamarin.UITest" Version="3.2.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\iOS\DataMockerSample.iOS.csproj">
@@ -78,9 +66,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TestResources.ru.resx" />
   </ItemGroup>
-    <ItemGroup>
-      <None Include="packages.config" />
-    </ItemGroup>
     <ItemGroup>
       <Content Include="MockFrameworkConfiguration.json" />
     </ItemGroup>

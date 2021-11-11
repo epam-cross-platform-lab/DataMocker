@@ -37,20 +37,11 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
-      <HintPath>..\..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="Xamarin.UITest" Version="3.2.2" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="Xamarin.UITest, Version=3.2.2.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\Xamarin.UITest.3.2.2\lib\net45\Xamarin.UITest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MockDataAttributePriority.cs" />
@@ -67,7 +58,6 @@
     <Compile Include="EnvironmentArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="DataMocker.UITest.nuspec" />
     <None Include="MockFrameworkConfiguration.json" />
   </ItemGroup>
