@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
+using Newtonsoft.Json;
+
 namespace DataMocker.Tests.UnitTests
 {
     public class TestDataItem
@@ -20,5 +22,10 @@ namespace DataMocker.Tests.UnitTests
         public string Route { get; set; }
 
         public string Url { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

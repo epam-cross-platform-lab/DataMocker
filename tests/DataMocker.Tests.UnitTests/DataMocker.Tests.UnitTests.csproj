@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\src\DataMocker.Mock\DataMocker.Mock.csproj" />
     <ProjectReference Include="..\DataMocker.Test.Data\DataMocker.Test.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="%28Core%29\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="%28Core%29\" />
+  </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using DataMocker.Tests.UnitTests.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -38,8 +39,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -54,8 +55,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -70,8 +71,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -89,8 +90,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -105,8 +106,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -121,8 +122,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -143,11 +144,17 @@ namespace DataMocker.Tests.UnitTests
             var urlWithSecondQuery = mainUrl + "?par=2";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var firstItem = await MakePostRequest(urlWithFirstQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery }));
-            var secondItem = await MakePostRequest(urlWithSecondQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery }));
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var firstItem = await new MockRequest(
+                urlWithFirstQuery,
+                args.ToString(),
+                new TestDataItem { Url = urlWithFirstQuery }.ToString()
+            ).PostAsync();
+            var secondItem = await new MockRequest(
+                urlWithSecondQuery,
+                args.ToString(),
+                new TestDataItem { Url = urlWithSecondQuery }.ToString()
+            ).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -165,11 +172,11 @@ namespace DataMocker.Tests.UnitTests
             var urlWithSecondQuery = mainUrl + "?par=2";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var firstItem = await MakePostRequest(urlWithFirstQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery }));
-            var secondItem = await MakePostRequest(urlWithSecondQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery }));
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var firstItem = await new MockRequest(urlWithFirstQuery, args.ToString(),
+                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery })).PostAsync();
+            var secondItem = await new MockRequest(urlWithSecondQuery, args.ToString(),
+                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery })).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -187,11 +194,11 @@ namespace DataMocker.Tests.UnitTests
             var urlWithSecondQuery = mainUrl + "?par=2";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var firstItem = await MakePostRequest(urlWithFirstQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery }));
-            var secondItem = await MakePostRequest(urlWithSecondQuery, args,
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery }));
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var firstItem = await new MockRequest(urlWithFirstQuery, args.ToString(),
+                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery })).PostAsync();
+            var secondItem = await new MockRequest(urlWithSecondQuery, args.ToString(),
+                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery })).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -213,8 +220,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -230,8 +237,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -247,8 +254,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -267,8 +274,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -284,8 +291,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -301,8 +308,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakePutRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -327,8 +334,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -344,8 +351,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -361,8 +368,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -380,8 +387,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/root/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -397,8 +404,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -414,8 +421,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/ts/test/item?hash=true";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
-            var actual = await MakeDeleteRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json);
+            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);

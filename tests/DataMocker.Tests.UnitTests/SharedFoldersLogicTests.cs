@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataMocker.Mock;
+using DataMocker.Tests.UnitTests.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -35,8 +36,8 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/shared/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -54,8 +55,8 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             Routes.AddRoute(route);
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
-            var response = await MakeGetRequest(url, args);
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
+            var response = await new MockRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -72,8 +73,12 @@ namespace DataMocker.Tests.UnitTests
             var url = "http://tests.com/shared/item";
 
             //Act
-            var args = GetEnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language, sharedFolders);
-            var response = await MakePostRequest(url, args, JsonConvert.SerializeObject(new TestDataItem { Url = url }));
+            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language, sharedFolders);
+            var response = await new MockRequest(
+                url,
+                args.ToString(),
+                new TestDataItem { Url = url }.ToString()
+            ).PostAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
