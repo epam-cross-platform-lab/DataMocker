@@ -9,20 +9,25 @@ using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests.Core
 {
-    public class MockRequest
+    public class ResourceRequest
     {
         private readonly string url;
         private readonly string args;
         private readonly string body;
 
-        public MockRequest(string url, string args, string body = null)
+        public ResourceRequest(string url, EnvironmentArgsString args, string body = null)
+            : this(url, args.ToString(), body)
+        {
+        }
+
+        public ResourceRequest(string url, string args, string body = null)
         {
             this.url = url;
             this.args = args;
             this.body = body;
         }
 
-        public async Task<TestDataItem> PostAsync()
+        public async Task<Response> PostAsync()
         {
             using (var client = new HttpClient(ResourceHandler(args)))
             {
@@ -34,11 +39,11 @@ namespace DataMocker.Tests.UnitTests.Core
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<TestDataItem>(result);
+                return JsonConvert.DeserializeObject<Response>(result);
             }
         }
 
-        public async Task<TestDataItem> GetAsync()
+        public async Task<Response> GetAsync()
         {
             using (var client = new HttpClient(ResourceHandler(args)))
             {
@@ -50,7 +55,7 @@ namespace DataMocker.Tests.UnitTests.Core
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<TestDataItem>(result);
+                return JsonConvert.DeserializeObject<Response>(result);
             }
         }
 
@@ -61,7 +66,7 @@ namespace DataMocker.Tests.UnitTests.Core
                 var response = await client.PutAsync(
                     url,
                     new StringContent(
-                        JsonConvert.SerializeObject(new TestDataItem { Url = url })
+                        JsonConvert.SerializeObject(new Response(url))
                     )
                 );
 

@@ -25,10 +25,9 @@ namespace DataMocker.SharedModels.Resources
     { 
         internal static string Create(string url, string body)
         {
-            var hashSource = string.Concat(url, body);
-            IHashCodeService hashCodeService= new HashCodeService();
-            var hashCode = hashCodeService.GetHashCodeAndConvertToX2(hashSource);
-            return hashCode.Substring(0, 8);
+            return (new HashCodeService() as IHashCodeService)
+                .GetHashCodeAndConvertToX2(string.Concat(url, body))
+                .Substring(0, 8);
         }
     }
 }
