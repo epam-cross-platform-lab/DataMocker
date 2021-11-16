@@ -20,63 +20,29 @@ using DataMocker.SharedModels.Resources;
 namespace DataMocker.MockServer
 {
     public class FileResourceStream : IResourceStream
-
     {
         private readonly string _rootPath;
-
         private string _requestedResource;
-        
-        #region IResourceStream members
-
-        string IResourceStream.RequestedResource => _requestedResource;
-
-
-        Stream IResourceStream.Stream(string resourceName)
-        {
-            Stream stream = null;
-
-            _requestedResource = resourceName;
-            Console.WriteLine($"try to find {resourceName} from {Directory.GetCurrentDirectory()}");
-            if (File.Exists(resourceName))
-            {
-                try
-                {
-                    stream = File.Open(resourceName, FileMode.Open);
-                }
-                catch(Exception e)
-                {
-                    var s = e.Message;
-                }
-            }
-            return stream;
-
-        }
-
-        Stream IResourceStream.Stream(params string[] resourceNameParts)
-        {
-            var paramsToJoin = new string[resourceNameParts.Length + 1];
-
-            paramsToJoin[0] = MockDataPath();
-
-            for (var i = 1; i < paramsToJoin.Length; i++)
-            {
-                paramsToJoin[i] = resourceNameParts[i - 1];
-            }
-            var resourceKey = string.Join(Path.DirectorySeparatorChar.ToString(), paramsToJoin, 0,
-                paramsToJoin.Length);                            
-            return (this as IResourceStream).Stream(resourceKey);
-        }                                         
-
-        #endregion                                
 
         public FileResourceStream(string rootPath)
         {
             _rootPath = rootPath;
         }
 
-        private string MockDataPath()
+        string IResourceStream.RequestedResource => _requestedResource;
+
+        Stream IResourceStream.Stream(params string[] resourceNameParts)
         {
-            return _rootPath.Replace('\\', Path.DirectorySeparatorChar);
+            return (this as IResourceStream).Stream(
+                new ResourceKey(_rootPath, resourceNameParts).ToString()
+            );
+        }
+
+        Stream IResourceStream.Stream(string resourceName)
+        {
+            _requestedResource = resourceName;
+            Console.WriteLine($"try to find {resourceName} from {Directory.GetCurrentDirectory()}");
+            return new ResourceFile(resourceName).ToStream();
         }
     }
 }
