@@ -92,7 +92,13 @@ namespace DataMocker.Mock
                 Body = body ?? string.Empty,
                 FileName = FileName(uri),
             };
-            mockRequest.Hash = ResourceHashCreator.Create(uri.AbsoluteUri , mockRequest.Body);
+
+            mockRequest.Hash = new FixedLength(
+                new ResourceHashCode(
+                    string.Concat(uri.AbsoluteUri, mockRequest.Body)
+                ),
+                length: 8
+            ).ToHexString();
             
             if (!checkRouting)
             {
