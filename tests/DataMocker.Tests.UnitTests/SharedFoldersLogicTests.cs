@@ -37,7 +37,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
+            var response = await new ResourceRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -56,7 +56,7 @@ namespace DataMocker.Tests.UnitTests
             //Act
             Routes.AddRoute(route);
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, null, sharedFolders);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
+            var response = await new ResourceRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -74,10 +74,10 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language, sharedFolders);
-            var response = await new MockRequest(
+            var response = await new ResourceRequest(
                 url,
                 args.ToString(),
-                new TestDataItem { Url = url }.ToString()
+                new Response(url).ToString()
             ).PostAsync();
 
             //Assert

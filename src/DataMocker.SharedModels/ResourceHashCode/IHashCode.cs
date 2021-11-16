@@ -13,10 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
-namespace DataMocker.SharedModels.Services
+namespace DataMocker.SharedModels
 {
-    internal interface IHashCodeService
+    internal interface IHashCode
     {
-        string GetHashCodeAndConvertToX2(string input);
+        string ToHexString();
     }
 }

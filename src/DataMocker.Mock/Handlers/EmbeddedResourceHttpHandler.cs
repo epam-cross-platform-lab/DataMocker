@@ -58,7 +58,11 @@ namespace DataMocker.Mock.Handlers
 
         private IResourceStream ResourceStream()
         {
-            return new EmbeddedResourceStream(_resourceAssembly, $"{_resourceAssembly.FullName.Remove(_resourceAssembly.FullName.IndexOf(','))}{Separator}Data", Separator);
+            return new EmbeddedResourceStream(
+                _resourceAssembly,
+                $"{_resourceAssembly.FullName.Remove(_resourceAssembly.FullName.IndexOf(','))}{Separator}Data",
+                Separator
+            );
         }
     }
 }

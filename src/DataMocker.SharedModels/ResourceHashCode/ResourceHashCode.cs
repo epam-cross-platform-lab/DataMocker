@@ -14,38 +14,43 @@
 // limitations under the License.
 // =========================================================================
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DataMocker.SharedModels.Services
+[assembly: InternalsVisibleTo("DataMocker.Mock")]
+[assembly: InternalsVisibleTo("DataMocker.MockServer")]
+[assembly: InternalsVisibleTo("DataMocker.Mock.GraphQL")]
+namespace DataMocker.SharedModels
 {
-    internal class HashCodeService : IHashCodeService
+    internal class ResourceHashCode : IHashCode
     {
-        private static readonly Encoding Encoding;
+        private readonly string _data;
+        private readonly Encoding _encoding;
 
-        static HashCodeService()
+        public ResourceHashCode(string data)
         {
-            Encoding = Encoding.UTF8;
+            _data = data;
+            _encoding = Encoding.UTF8;
         }
 
-        string IHashCodeService.GetHashCodeAndConvertToX2(string input)
+        string IHashCode.ToHexString()
         {
-            var hash = GetHashCodeInternal(input);
-            return HexStringFromBytes(hash);
+            return HexStringFromBytes(SHA1Bytes(_data));
         }
 
-        private static byte[] GetHashCodeInternal(string input)
+        private byte[] SHA1Bytes(string input)
         {
             byte[] hash;
             using (var sha1 = SHA1.Create())
             {
-                hash = sha1.ComputeHash(Encoding.GetBytes(input));
+                hash = sha1.ComputeHash(_encoding.GetBytes(input));
             }
 
             return hash;
         }
 
-        private static string HexStringFromBytes(IEnumerable<byte> bytes)
+        private string HexStringFromBytes(IEnumerable<byte> bytes)
         {
             var sb = new StringBuilder();
             foreach (var b in bytes)
