@@ -37,7 +37,8 @@ namespace DataMocker.UITest
                 SharedFolderPath = _testMetaData.SharedFolderPath,
                 Delay = _mockDataServer.Delay,
                 Language = _testMetaData.Language,
-                RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer?.Url : null
+                RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer?.Url : null,
+                WriteMode = !_mockDataServer.UseEmbeddedDevice && _mockDataServer.WriteMode,
             };
             return JsonConvert.SerializeObject(args);
 		}		

@@ -60,6 +60,11 @@ namespace DataMocker.Mock
         /// </summary>
         /// <value>The shared folder.</value>
         public IList<string> SharedFolder { get; private set; }
+        
+        /// <summary>
+        /// Indicates write or read mode.
+        /// </summary>
+        public bool WriteMode { get; private set; }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockEnvironmentConfig"/> class.
@@ -118,6 +123,7 @@ namespace DataMocker.Mock
 
 
             RemoteUrl = environmentArguments.RemoteUrl;
+            WriteMode = environmentArguments.WriteMode;
         }
 
         private void DefaultEnvironmentValues()
