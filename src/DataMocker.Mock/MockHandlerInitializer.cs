@@ -65,10 +65,8 @@ namespace DataMocker.Mock
                 {
                     return new RemoteHostHttpHandler(RequestBuilder());
                 }
-                else
-                {
-                    return new WriteToMockServerHttpHandler(_appEnvironmentConfig.RemoteUrl);
-                }
+
+                return new WriteToMockServerHttpHandler(RequestBuilder(), _appEnvironmentConfig.RemoteUrl);
             }
 
             return new EmbeddedResourceHttpHandler(RequestBuilder(), _resourceAssembly);
