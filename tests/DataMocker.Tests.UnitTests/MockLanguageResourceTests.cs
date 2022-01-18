@@ -33,58 +33,55 @@ namespace DataMocker.Tests.UnitTests
         [TestMethod]
         public async Task Get_JsonItem_FromLanguageFolder()
         {
-            //Assert
             var url = "http://tests.com/language/item";
-
-            //Act
-            var args = new EnvironmentArgsString(
-                new List<string>
-                {
-                    "MockResourceTests",
-                    "LangMockResourceTests"
-                },
-                "ItemFromFolder",
-                MockFilesFormats.Json,
-                "fr-FR"
+            Assert.AreEqual(
+                new Response(url),
+                await new ResourceRequest(
+                    url,
+                    new EnvironmentArgsString(
+                        new List<string> { "MockResourceTests", "LangMockResourceTests" },
+                        "ItemFromFolder",
+                        MockFilesFormats.Json,
+                        "fr-FR"
+                    )
+                ).GetAsync()
             );
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
-
-            //Assert
-            Assert.AreEqual(url, response?.Url);
         }
 
         [TestMethod]
         public async Task Get_JsonItem_FromLanguageFolder_FromTestScenarioFolder()
         {
-            //Assert
-            var testScenario = new List<string> { "MockResourceTests", "LangMockResourceTests" };
-            var testName = "ItemFromTS";
             var url = "http://tests.com/language/ts/item";
-            var language = "fr-FR";
-
-            //Act
-            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
-
-            //Assert
-            Assert.AreEqual(url, response?.Url);
+            Assert.AreEqual(
+                new Response(url),
+                await new ResourceRequest(
+                    url,
+                    new EnvironmentArgsString(
+                        new List<string> { "MockResourceTests", "LangMockResourceTests" },
+                        "ItemFromTS",
+                        MockFilesFormats.Json,
+                        "fr-FR"
+                    )
+                ).GetAsync()
+            );
         }
 
         [TestMethod]
         public async Task Get_JsonItem_FromLanguage_FromTestFolder()
         {
-            //Assert
-            var testScenario = new List<string> { "MockResourceTests", "LangMockResourceTests" };
-            var testName = "ItemFromTestFolder";
             var url = "http://tests.com/language/ts/test/item";
-            var language = "fr-FR";
-
-            //Act
-            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
-
-            //Assert
-            Assert.AreEqual(url, response?.Url);
+            Assert.AreEqual(
+                new Response(url),
+                await new ResourceRequest(
+                    url,
+                    new EnvironmentArgsString(
+                        new List<string> { "MockResourceTests", "LangMockResourceTests" },
+                        "ItemFromTestFolder",
+                        MockFilesFormats.Json,
+                        "fr-FR"
+                    )
+                ).GetAsync()
+            );
         }
         #endregion
 
@@ -92,18 +89,19 @@ namespace DataMocker.Tests.UnitTests
         [TestMethod]
         public async Task Get_JsonItem_WithHashCode_FromLanguageFolder()
         {
-            //Assert
-            var testScenario = new List<string> { "MockResourceTests", "LangMockResourceTests" };
-            var testName = "ItemFromFolder";
             var url = "http://tests.com/language/item?hash=true";
-            var language = "fr-FR";
-
-            //Act
-            var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
-
-            //Assert
-            Assert.AreEqual(url, response?.Url);
+            Assert.AreEqual(
+                new Response(url),
+                await new ResourceRequest(
+                    url,
+                    new EnvironmentArgsString(
+                        new List<string> { "MockResourceTests", "LangMockResourceTests" },
+                        "ItemFromFolder",
+                        MockFilesFormats.Json,
+                        "fr-FR"
+                    )
+                ).GetAsync()
+            );
         }
 
         [TestMethod]
@@ -117,7 +115,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
+            var response = await new ResourceRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -134,7 +132,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var response = await new MockRequest(url, args.ToString()).GetAsync();
+            var response = await new ResourceRequest(url, args.ToString()).GetAsync();
 
             //Assert
             Assert.AreEqual(url, response?.Url);
@@ -158,10 +156,10 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var firstItem = await new MockRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery })).PostAsync();
-            var secondItem = await new MockRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery })).PostAsync();
+            var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+            var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -181,10 +179,10 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var firstItem = await new MockRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery })).PostAsync();
-            var secondItem = await new MockRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery })).PostAsync();
+            var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+            var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -204,10 +202,10 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var firstItem = await new MockRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithFirstQuery })).PostAsync();
-            var secondItem = await new MockRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new TestDataItem { Url = urlWithSecondQuery })).PostAsync();
+            var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+            var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
+                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -231,7 +229,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -249,7 +247,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -266,7 +264,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -286,7 +284,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -304,7 +302,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -321,7 +319,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).PutAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).PutAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -347,7 +345,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -365,7 +363,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -383,7 +381,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -404,7 +402,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -422,7 +420,7 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
@@ -440,13 +438,14 @@ namespace DataMocker.Tests.UnitTests
 
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
-            var actual = await new MockRequest(url, args.ToString()).DeleteAsync();
+            var actual = await new ResourceRequest(url, args.ToString()).DeleteAsync();
 
             //Assert
             Assert.AreEqual(expectedValue, actual);
         }
 
         #endregion
+
         #endregion
     }
 }
