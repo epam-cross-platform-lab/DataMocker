@@ -54,30 +54,45 @@ namespace DataMocker.SharedModels
         /// <returns>resource stream for mock request</returns>
         public Stream ToStream()
         {
-            _mockRequest.FileName = _mockRequest.HttpMethod.ToLower() + _mockRequest.FileName;
-            return ToStream(new JsonResourceFileName(_mockRequest.FileName, _mockRequest.Hash));
+            return ToStream(new ResourceFromRequest(_mockRequest));
         }
 
-        private Stream ToStream(ResourceFileName fileName)
+        private Stream ToStream(IResourceName fileName)
         {
-            var testScenarios = _mockRequest.TestScenarioList;
-            testScenarios.Add(_mockRequest.TestName);
-
-            var i = 0;
-            do
+            IList<string> testScenarios = null;
+            if (_mockRequest.TestScenarioList != null || !string.IsNullOrEmpty(_mockRequest.TestName))
             {
-                var stream = GetResourceStreamAccordingLocale(testScenarios.Take(testScenarios.Count - i++).ToList(), fileName, _mockRequest.Language);
-                if (stream != null)
+                testScenarios = _mockRequest.TestScenarioList ?? new List<string>();
+                testScenarios.Add(_mockRequest.TestName);
+
+                var i = 0;
+                do
                 {
-                    return stream;
-                }
-            } while (i < testScenarios.Count);
+                    var stream = GetResourceStreamAccordingLocale(
+                        testScenarios.Take(testScenarios.Count - i++).ToList(),
+                        fileName,
+                        _mockRequest.Language
+                    );
+                    if (stream != null)
+                    {
+                        return stream;
+                    }
+                } while (i < testScenarios.Count);
+            }
 
             return GetResourceStreamFromSharedFolders(fileName)
-                ?? GetResourceStreamAccordingLocale(testScenarios.Take(0).ToList(), fileName, _mockRequest.Language);
+                ?? GetResourceStreamAccordingLocale(
+                        testScenarios?.Take(0).ToList() ?? new List<string> (),
+                        fileName,
+                        _mockRequest.Language
+                   );
         }
 
-        private Stream GetResourceStreamAccordingLocale(List<string> path, ResourceFileName fileName, string language,bool isSharedBranch = false)
+        private Stream GetResourceStreamAccordingLocale(
+            List<string> path,
+            IResourceName fileName,
+            string language,
+            bool isSharedBranch = false)
         {
             if (!string.IsNullOrWhiteSpace(language) && (path.Count <= _mockRequest.TestScenarioList.Count - 2 || isSharedBranch))
             {
@@ -93,7 +108,7 @@ namespace DataMocker.SharedModels
             return GetResourceStreamWithHash(path, fileName);
         }
 
-        private Stream GetResourceStreamFromSharedFolders(ResourceFileName fileName)
+        private Stream GetResourceStreamFromSharedFolders(IResourceName fileName)
         {
             var sharedFoldersPath = _mockRequest.SharedFoldersList;
 
@@ -114,7 +129,7 @@ namespace DataMocker.SharedModels
             return null;
         }
 
-        private Stream GetResourceStreamWithHash(IReadOnlyCollection<string> path, ResourceFileName fileName)
+        private Stream GetResourceStreamWithHash(IReadOnlyCollection<string> path, IResourceName fileName)
         {
             return _resourceStream.Stream(path.Concat(new[] {fileName.ToString(true)}).ToArray()) ??
                    _resourceStream.Stream(path.Concat(new[] {fileName.ToString(false)}).ToArray());

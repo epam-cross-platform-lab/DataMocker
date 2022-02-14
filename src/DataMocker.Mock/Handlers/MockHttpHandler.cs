@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
+using DataMocker.SharedModels.Resources;
 using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
@@ -97,7 +98,15 @@ namespace DataMocker.Mock.Handlers
 
                 if (resourceStream == null)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent(
+                            "Resource file hasn't been found: [" +
+                            new ResourceFromRequest(mockRequest).ToString(false) +
+                            ", " + new ResourceFromRequest(mockRequest).ToString(true) + "]"
+                        )
+                    };
                 }
 
                 return ReadData(resourceStream);
@@ -109,7 +118,6 @@ namespace DataMocker.Mock.Handlers
             using (var reader = new StreamReader(resourceStream))
             {
                 var data = reader.ReadToEnd();
-
                 if (data == null)
                 {
                     return new HttpResponseMessage(HttpStatusCode.NotFound);

@@ -15,7 +15,7 @@
 // =========================================================================
 namespace DataMocker.SharedModels.Resources
 {
-    internal class ResourceFileName
+    internal class ResourceFileName : IResourceName
     {
         private readonly string _fileName;
 
@@ -27,7 +27,7 @@ namespace DataMocker.SharedModels.Resources
             HashCode = hashCode;
         }
 
-        internal string ToString(bool withHash)
+        public string ToString(bool withHash)
         {
             return FileName(_fileName, withHash ? WrappedHashCodeString(HashCode) : string.Empty);
         }

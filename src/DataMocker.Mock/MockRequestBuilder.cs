@@ -15,7 +15,6 @@
 // =========================================================================
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using DataMocker.SharedModels;
 using DataMocker.SharedModels.Resources;
@@ -70,7 +69,7 @@ namespace DataMocker.Mock
         /// <param name="url">URL.</param>
         protected virtual string FileName(Uri url)
         {
-            return string.Join("_", url.Segments.Select(s => s.Trim('/')));
+            return new ResourceFromUri(url).ToString();
         }
 
         private MockRequest ParseUrlToMockRequest(Uri uri,
