@@ -32,30 +32,42 @@ namespace DataMocker.Tests.UnitTests
         public void RoutedFileName_RouteUrl()
         {
             //Assign
-            var expectedFileName = "_method_41";
             var route = "controller/{method}/{id}";
             var routedUrl = "http://example.com/controller/method/41";
 
-            //Act
-            var actualFileName = GetRoutedName(route, routedUrl);
-
             //Assert
-            Assert.AreEqual(expectedFileName, actualFileName);
+            Assert.AreEqual(
+                "_method_41",
+                GetRoutedName(route, routedUrl)
+            );
         }
 
         [TestMethod]
         public void RoutedFileName_RouteUrl_WithQuery()
         {
             //Assign
-            var expectedFileName = "_method_41";
-            var route = "controller/{method}/{id}";
+            var route = "controller/{method}/{id}?";
             var routedUrl = "http://example.com/controller/method/41?par=1&tet=ssss";
 
-            //Act
-            var actualFileName = GetRoutedName(route, routedUrl);
+            //Assert
+            Assert.AreEqual(
+                "_method_41",
+                GetRoutedName(route, routedUrl)
+            );
+        }
+
+        [TestMethod]
+        public void RoutedFileNameByQuery_WhenRouteUrl_WithQuery()
+        {
+            //Assign
+            var route = "apiscanning.php?filter={id}&date={id2}";
+            var routedUrl = "http://test.server.be:80/webservice/apiscanning.php?filter=getData&date=2022-02-11";
 
             //Assert
-            Assert.AreEqual(expectedFileName, actualFileName);
+            Assert.AreEqual(
+                "_getData_2022-02-11",
+                GetRoutedName(route, routedUrl)
+            );
         }
 
         [TestMethod]
@@ -249,12 +261,8 @@ namespace DataMocker.Tests.UnitTests
         private string GetRoutedName(string routeRule, string urlString)
         {
             Routes.AddRoute(routeRule);
-
-
             Routes.AddRoute("api/v1/{firstSegment}/{secondSegment}/{variativeSegment?}");
-
-            var uri = new Uri(urlString);
-            return Routes.RoutedNameByUrl(uri);
+            return Routes.RoutedNameByUrl(new Uri(urlString));
         }
     }
 }

@@ -26,7 +26,7 @@ namespace DataMocker.Mock
         private const string FindAnyPattern = @"{\w+}";
         private const string FindIgnorePattern = @"{\w+\?}";
         private const string UTF16Slash = @"\/";
-        private const string AnyPattern = @"\w+";
+        private const string AnyPattern = @"(\S+)";
         private const string IgnorePattern = @"(\/\w+)?";
 
         private static readonly List<string> routes= new List<string>();
@@ -36,7 +36,10 @@ namespace DataMocker.Mock
         /// <returns>routed url in type <see cref="T:System.String"/>.</returns>
         public static string RoutedNameByUrl(Uri routedUrl)
         {
-            return  RouteRuleToResourceName(routes.FirstOrDefault(route => IsUrlRouted(route, routedUrl)), routedUrl); 
+            return RouteRuleToResourceName(
+                routes.FirstOrDefault(route => IsUrlRouted(route, routedUrl)),
+                routedUrl
+            ); 
         }
 
         /// <summary>Add a new route.</summary>
@@ -81,7 +84,12 @@ namespace DataMocker.Mock
 
             for (var i = 0; i < segments.Length - c + 1; i++)
             {
-                otherSegments.Add(Regex.Replace(segments[i], FindAnyPattern, AnyPattern));
+                otherSegments.Add(
+                    Regex
+                        .Replace(segments[i], FindAnyPattern, AnyPattern)
+                        .Replace(".", "\\.")
+                        .Replace("?", "\\?")
+                );
             }
             return UTF16Slash + string.Join(UTF16Slash, otherSegments) + string.Join(string.Empty, ignoredSegments);
         }
@@ -91,7 +99,9 @@ namespace DataMocker.Mock
             var path = url.AbsolutePath;
             path = RemoveLastPart(path, "/");
             route = RemoveLastPart(route, UTF16Slash);
-            return Regex.Replace(path, route, string.Empty) == string.Empty;
+            return Regex.IsMatch(path, route)
+                || Regex.IsMatch(path + url.Query , route)
+                || Regex.Replace(path, route, string.Empty) == string.Empty;
         }
 
         private static string RouteRuleToResourceName(string route, Uri routedUrl)
@@ -99,6 +109,12 @@ namespace DataMocker.Mock
             if (string.IsNullOrWhiteSpace(route))
             {
                 return null;
+            }
+
+            var match = Regex.Match(routedUrl.AbsolutePath + routedUrl.Query, route);
+            if (match.Success)
+            {
+                return "_" + RemoveLastPart(string.Join("_", match.Groups.Skip(1).Select(g => g.Value.Replace("/", "_"))), "_");
             }
 
             var segments = routedUrl.Segments;
