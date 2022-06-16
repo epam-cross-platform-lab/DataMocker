@@ -20,7 +20,7 @@ using DataMocker.Mock.Handlers;
 namespace DataMocker.Mock
 {
     /// <summary>
-    /// Intialize new mock handlers depending on arsg string.
+    /// Intialize new mock handlers depending on args string.
     /// </summary>
     public class MockHandlerInitializer : IMockHandlerIntializer
     {
@@ -61,7 +61,12 @@ namespace DataMocker.Mock
         {
             if (!string.IsNullOrWhiteSpace(_appEnvironmentConfig.RemoteUrl))
             {
-                return new RemoteHostHttpHandler(RequestBuilder());
+                if (!_appEnvironmentConfig.WriteMode)
+                {
+                    return new RemoteHostHttpHandler(RequestBuilder());
+                }
+
+                return new WriteToMockServerHttpHandler(RequestBuilder(), _appEnvironmentConfig.RemoteUrl);
             }
 
             return new EmbeddedResourceHttpHandler(RequestBuilder(), _resourceAssembly);

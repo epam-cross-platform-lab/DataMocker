@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using DataMocker.SharedModels.Resources;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using DataMocker.MockServer.Dto;
 
 namespace DataMocker.MockServer.Controllers
@@ -85,6 +88,46 @@ namespace DataMocker.MockServer.Controllers
                 request.TestName,
                 request.HttpMethod,
                 request.FileName));
+        }
+
+        [Route("api")]
+        [HttpPut]
+        public Task<HttpResponseMessage> Save([FromBody] SaveRequestContent request)
+        {
+            HttpResponseMessage returnMessage=new HttpResponseMessage();
+            try
+            {
+                var mockResource = new MockResource(ResourceStream(), request.MockRequest);
+
+                var pathToNewResource = Path.Combine(
+                    Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                    PathToMockData,
+                    "SavedRequests",
+                    new JsonResourceFileName(request.MockRequest.HttpMethod.ToLower() + request.MockRequest.FileName,
+                        request.MockRequest.Hash).ToString(true));
+
+                Directory.CreateDirectory(Path.GetDirectoryName(pathToNewResource));
+                
+                using (Stream stream = System.IO.File.Create(pathToNewResource))
+                {
+                    using (var streamWriter = new StreamWriter(stream))
+                    {
+                        streamWriter.Write(request.Response);
+                        streamWriter.Close();
+                        stream.Close();
+                    }
+                }
+                
+                returnMessage = new HttpResponseMessage(HttpStatusCode.Created);
+                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Put, "Created");
+            }
+            catch (Exception ex)
+            {
+                returnMessage = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
+                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Post, ex.ToString());
+            }
+
+            return Task.FromResult(returnMessage);
         }
 
         private IResourceStream ResourceStream()

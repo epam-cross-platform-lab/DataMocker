@@ -46,5 +46,10 @@ namespace DataMocker
         /// <summary>Get or set the url of mock data server./// </summary>
         /// <returns>The url of mock data server.</returns>
         public string RemoteUrl { get; set; }
+        
+        /// <summary>
+        /// Get or set read or write mode.
+        /// </summary>
+        public bool WriteMode { get; set; }
     }
 }

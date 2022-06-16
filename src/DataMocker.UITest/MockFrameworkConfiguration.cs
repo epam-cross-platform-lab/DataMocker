@@ -39,6 +39,12 @@ namespace DataMocker.UITest
         /// </summary>
         /// <value><c>true</c> if use embedded device; otherwise, <c>false</c>.</value>
         public bool UseEmbeddedDevice { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating should framework work in "write to mock server" mode.
+        /// </summary>
+        /// <value><c>true</c> if use embedded device; otherwise, <c>false</c>.</value>
+        public bool WriteMode { get; set; }
 
         /// <summary>Gets or sets the android backdoor method.</summary>
         /// <value>The android backdoor method.</value>
