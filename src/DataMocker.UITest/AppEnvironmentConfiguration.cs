@@ -25,30 +25,32 @@ namespace DataMocker.UITest
 	{
 		private readonly IApp _app;
 		private readonly Platform _platform;
+        private readonly Assembly _assembly;
 		
-		internal AppEnvironmentConfiguration(IApp app, Platform platform)
+		internal AppEnvironmentConfiguration(IApp app, Platform platform, Assembly assembly)
 		{
 			_app = app;
 			_platform = platform;
+            _assembly = assembly;
 		}
 
         internal void Setup(TestMetaData testMetaData)
-		{
-            var mockConfig = GetMockFrameworkConfiguration();
+        {
+            var mockConfig = GetMockFrameworkConfiguration(_assembly);
             var backdoorMethodName = mockConfig?.GetBackDoorName(_platform);
             if (!string.IsNullOrWhiteSpace(backdoorMethodName))
             {
-                _app.Invoke(backdoorMethodName, new EnvironmentArguments(testMetaData, mockConfig).ToString()); 
+                _app.Invoke(backdoorMethodName, new EnvironmentArguments(testMetaData, mockConfig).ToString());
             }
-		}
 
-        private static MockFrameworkConfiguration GetMockFrameworkConfiguration()
+        }
+
+        private static MockFrameworkConfiguration GetMockFrameworkConfiguration(Assembly assembly)
         {
             try
             {
-
-                var location = Assembly.GetExecutingAssembly().Location;
-                using (var stream = File.Open(location.Remove(location.LastIndexOf('/') + 1) + "MockFrameworkConfiguration.json", FileMode.Open))
+                using (var stream = assembly.GetManifestResourceStream(assembly.ManifestModule.Name.Replace("dll", string.Empty) + "MockFrameworkConfiguration.json")
+                )
                 {
                     using (var streamReader = new StreamReader(stream))
                     {
@@ -57,7 +59,7 @@ namespace DataMocker.UITest
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
