@@ -43,7 +43,7 @@ namespace DataMocker.UITest
         private static void SetupAppEnvironmentVariables(Type testType)
         {
             var testMetaData = new TestMetaData(testType);
-            new AppEnvironmentConfiguration(App, Platform).Setup(testMetaData);
+            new AppEnvironmentConfiguration(App, Platform, testType.Assembly).Setup(testMetaData);
         }
 
         private static void SetupTestLanguage(Type testType)
