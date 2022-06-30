@@ -56,9 +56,9 @@ namespace DataMocker.Mock.Resourses
         public Stream Stream(string resourceName)
         {
             _requestedResource = resourceName;
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"[DataMocker] trying to get {resourceName} {Environment.NewLine}");
-#endif
+
+            MockLogger.Log($"[DataMocker] trying to get {resourceName} {Environment.NewLine}");
+
             return _assembly.GetManifestResourceStream(resourceName);
         }
     }

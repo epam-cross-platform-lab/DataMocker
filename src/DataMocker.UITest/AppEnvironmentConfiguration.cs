@@ -47,21 +47,14 @@ namespace DataMocker.UITest
 
         private static MockFrameworkConfiguration GetMockFrameworkConfiguration(Assembly assembly)
         {
-            try
+            using (var stream = assembly.GetManifestResourceStream(assembly.ManifestModule.Name.Replace("dll", string.Empty) + "MockFrameworkConfiguration.json")
+            )
             {
-                using (var stream = assembly.GetManifestResourceStream(assembly.ManifestModule.Name.Replace("dll", string.Empty) + "MockFrameworkConfiguration.json")
-                )
+                using (var streamReader = new StreamReader(stream))
                 {
-                    using (var streamReader = new StreamReader(stream))
-                    {
-                        var cofigString = streamReader.ReadToEnd();
-                        return JsonConvert.DeserializeObject<MockFrameworkConfiguration>(cofigString);
-                    }
+                    var cofigString = streamReader.ReadToEnd();
+                    return JsonConvert.DeserializeObject<MockFrameworkConfiguration>(cofigString);
                 }
-            }
-            catch (Exception ex)
-            {
-                return null;
             }
         }
 	}
