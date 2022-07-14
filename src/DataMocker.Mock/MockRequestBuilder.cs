@@ -55,9 +55,9 @@ namespace DataMocker.Mock
             return ParseUrlToMockRequest(
                 message.RequestUri,
                 message.Method.Method,
-                _appEnvironmentConfig?.TestScenarios,
+                _appEnvironmentConfig?.TestScenarios?.ToList(),
                 _appEnvironmentConfig?.TestName,
-                _appEnvironmentConfig?.SharedFolder,
+                _appEnvironmentConfig?.SharedFolder?.ToList(),
                 _appEnvironmentConfig?.Language,
                 checkRouting,
                 message.Content?.ReadAsStringAsync()?.Result);
