@@ -24,6 +24,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DataMocker.MockServer.Dto;
+using System.Linq;
 
 namespace DataMocker.MockServer.Controllers
 {
@@ -100,9 +101,9 @@ namespace DataMocker.MockServer.Controllers
                 var mockResource = new MockResource(ResourceStream(), request.MockRequest);
 
                 var pathToNewResource = Path.Combine(
-                    Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     PathToMockData,
-                    "SavedRequests",
+                    Path.Combine(request.MockRequest.TestScenarioList.ToArray()),
+                    request.MockRequest.TestName,
                     new JsonResourceFileName(request.MockRequest.HttpMethod.ToLower() + request.MockRequest.FileName,
                         request.MockRequest.Hash).ToString(true));
 
