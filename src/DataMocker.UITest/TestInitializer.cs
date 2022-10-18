@@ -32,18 +32,19 @@ namespace DataMocker.UITest
         /// <param name="app">Current app.</param>
         /// <param name="platform">Current platform.</param>
         /// <param name="testType">Current test type.</param>
-        public static void Initialize(IApp app, Platform platform, Type testType)
+        /// <param name="additionalParams">Additional user's params.</param>
+        public static void Initialize(IApp app, Platform platform, Type testType, string additionalParams = "")
         {
             Platform = platform;
             App = app;
-            SetupAppEnvironmentVariables(testType);
+            SetupAppEnvironmentVariables(testType, additionalParams);
             SetupTestLanguage(testType);
         }
 
-        private static void SetupAppEnvironmentVariables(Type testType)
+        private static void SetupAppEnvironmentVariables(Type testType, string additionalParams)
         {
             var testMetaData = new TestMetaData(testType);
-            new AppEnvironmentConfiguration(App, Platform, testType.Assembly).Setup(testMetaData);
+            new AppEnvironmentConfiguration(App, Platform, testType.Assembly).Setup(testMetaData, additionalParams);
         }
 
         private static void SetupTestLanguage(Type testType)

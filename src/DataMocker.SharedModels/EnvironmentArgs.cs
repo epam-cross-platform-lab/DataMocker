@@ -50,5 +50,10 @@ namespace DataMocker
         /// Get or set read or write mode.
         /// </summary>
         public bool WriteMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets additional params.
+        /// </summary>
+        public string AdditionalParams { get; set; }
     }
 }
