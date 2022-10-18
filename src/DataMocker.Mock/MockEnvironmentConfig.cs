@@ -66,6 +66,12 @@ namespace DataMocker.Mock
         /// </summary>
         public bool WriteMode { get; private set; }
 
+
+        /// <summary>
+        /// Gets or sets additional params.
+        /// </summary>
+        public string AdditionalParams { get; private set; }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:DataMocker.Mock.MockEnvironmentConfig"/> class.
         /// </summary>
@@ -111,6 +117,7 @@ namespace DataMocker.Mock
             TestScenarios = environmentArguments.TestScenario;
             RequestDelay = environmentArguments.Delay;
             Language = environmentArguments.Language?.Replace("-", "_");
+            AdditionalParams = environmentArguments.AdditionalParams;
 
             try
             {
