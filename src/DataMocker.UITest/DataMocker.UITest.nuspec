@@ -11,7 +11,7 @@
     <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
    <tags>xamarin, android, xamarin.android, monodroid, ios, xamarin.ios, monotouch, xamarin.uitest, uitest</tags>
    <releaseNotes>
-      - Add possibility to use custom ;
+      - Add possibility to use custom user parameter for providing to app some necessary info;
     </releaseNotes>
     <copyright>© 2022 EPAM Systems, Inc. All Rights Reserved.</copyright>
     <dependencies>
