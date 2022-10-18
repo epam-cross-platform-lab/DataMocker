@@ -34,13 +34,13 @@ namespace DataMocker.UITest
             _assembly = assembly;
 		}
 
-        internal void Setup(TestMetaData testMetaData)
+        internal void Setup(TestMetaData testMetaData, string additionalParam)
         {
             var mockConfig = GetMockFrameworkConfiguration(_assembly);
             var backdoorMethodName = mockConfig?.GetBackDoorName(_platform);
             if (!string.IsNullOrWhiteSpace(backdoorMethodName))
             {
-                _app.Invoke(backdoorMethodName, new EnvironmentArguments(testMetaData, mockConfig).ToString());
+                _app.Invoke(backdoorMethodName, new EnvironmentArguments(testMetaData, mockConfig, additionalParam).ToString());
             }
 
         }

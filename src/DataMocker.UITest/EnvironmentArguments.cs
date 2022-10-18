@@ -21,24 +21,27 @@ namespace DataMocker.UITest
 	{
 		private readonly TestMetaData _testMetaData;
 		private readonly MockFrameworkConfiguration _mockDataServer;
+		private readonly string _additioanalParams;
 
-	    internal EnvironmentArguments(TestMetaData testMetaData, MockFrameworkConfiguration mockDataServer)
+	    internal EnvironmentArguments(TestMetaData testMetaData, MockFrameworkConfiguration mockDataServer, string additionalParams)
 		{
 			_testMetaData = testMetaData;
 			_mockDataServer = mockDataServer;
+			_additioanalParams = additionalParams;
 		}
 
 		public override string ToString()
 		{
-            var args = new EnvironmentArgs
-            {
-                TestName = _testMetaData.TestName,
-                TestScenario = _testMetaData.TestScenarios,
-                SharedFolderPath = _testMetaData.SharedFolderPath,
-                Delay = _mockDataServer.Delay,
-                Language = _testMetaData.Language,
-                RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer?.Url : null,
-                WriteMode = !_mockDataServer.UseEmbeddedDevice && _mockDataServer.WriteMode,
+			var args = new EnvironmentArgs
+			{
+				TestName = _testMetaData.TestName,
+				TestScenario = _testMetaData.TestScenarios,
+				SharedFolderPath = _testMetaData.SharedFolderPath,
+				Delay = _mockDataServer.Delay,
+				Language = _testMetaData.Language,
+				RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer?.Url : null,
+				WriteMode = !_mockDataServer.UseEmbeddedDevice && _mockDataServer.WriteMode,
+				AdditionalParams = _additioanalParams
             };
             return JsonConvert.SerializeObject(args);
 		}		
