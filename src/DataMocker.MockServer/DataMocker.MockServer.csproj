@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="DataMocker.Mock" Version="1.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataMocker.SharedModels\DataMocker.SharedModels.csproj" />
+    <None Remove="DataMocker.Mock" />
   </ItemGroup>
 </Project>
