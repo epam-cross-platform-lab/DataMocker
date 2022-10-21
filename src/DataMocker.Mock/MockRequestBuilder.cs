@@ -95,8 +95,8 @@ namespace DataMocker.Mock
 
             mockRequest.Hash = new FixedLength(
                 new ResourceHashCode(
-                    string.Concat(uri.AbsoluteUri, mockRequest.Body)
-                ),
+                    uri,
+                    mockRequest.Body),
                 length: 8
             ).ToHexString();
             

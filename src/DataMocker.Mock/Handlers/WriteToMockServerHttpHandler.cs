@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
+using DataMocker.Mock.DatesReplacing;
 using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
@@ -25,8 +26,9 @@ namespace DataMocker.Mock.Handlers
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.SendAsync(request, cancellationToken);
+                var jsonContent = new JsonWithDynamicDates(await response.Content.ReadAsStringAsync()).ToJsonWithDatesReplacements();
                 var content = HttpContent(new SaveRequestContent
-                { Response = await response.Content.ReadAsStringAsync(), MockRequest = _mockRequestBuilder.MockRequest(request, false) });
+                { Response = jsonContent, MockRequest = _mockRequestBuilder.MockRequest(request, false) });
                 await httpClient.PutAsync(new Uri(_mockServerUrl),
                     content,
                     cancellationToken);

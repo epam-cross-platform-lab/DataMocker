@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -25,18 +26,20 @@ namespace DataMocker.SharedModels
 {
     internal class ResourceHashCode : IHashCode
     {
-        private readonly string _data;
+        private readonly string _body;
         private readonly Encoding _encoding;
+        private readonly Uri _uri;
 
-        public ResourceHashCode(string data)
+        public ResourceHashCode(Uri uri, string body)
         {
-            _data = data;
+            _body = body;
+            _uri = uri;
             _encoding = Encoding.UTF8;
         }
 
         string IHashCode.ToHexString()
         {
-            return HexStringFromBytes(SHA1Bytes(_data));
+            return HexStringFromBytes(SHA1Bytes(string.Concat(_uri.AbsoluteUri, _body)));
         }
 
         private byte[] SHA1Bytes(string input)

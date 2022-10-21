@@ -25,4 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DataMocker.SharedModels\DataMocker.SharedModels.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="DatesReplacing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DatesReplacing\" />
+  </ItemGroup>
 </Project>
