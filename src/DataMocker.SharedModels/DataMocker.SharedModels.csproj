@@ -12,4 +12,10 @@
     <DebugType></DebugType>
     <DocumentationFile>bin\Release\netstandard2.0\DataMocker.SharedModels.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="DateTimeReplacement\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DateTimeReplacement\" />
+  </ItemGroup>
 </Project>

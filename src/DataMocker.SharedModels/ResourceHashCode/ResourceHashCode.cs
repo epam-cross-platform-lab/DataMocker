@@ -18,10 +18,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using DataMocker.SharedModels.DatesReplacing;
 
 [assembly: InternalsVisibleTo("DataMocker.Mock")]
 [assembly: InternalsVisibleTo("DataMocker.MockServer")]
 [assembly: InternalsVisibleTo("DataMocker.Mock.GraphQL")]
+[assembly: InternalsVisibleTo("DataMocker.Tests.UnitTests")]
 namespace DataMocker.SharedModels
 {
     internal class ResourceHashCode : IHashCode
@@ -39,7 +43,43 @@ namespace DataMocker.SharedModels
 
         string IHashCode.ToHexString()
         {
-            return HexStringFromBytes(SHA1Bytes(string.Concat(_uri.AbsoluteUri, _body)));
+            return HexStringFromBytes(SHA1Bytes(string.Concat(PrepareUri().AbsoluteUri, PrepareBody())));
+        }
+
+        private Uri PrepareUri()
+        {
+            System.Collections.Specialized.NameValueCollection parameters = HttpUtility.ParseQueryString(_uri.Query);
+            foreach (var key in parameters.AllKeys)
+            {
+                var p = parameters[key];
+                DateTime dateTime;
+                DateTimeOffset dateTimeOffset;
+                var parsingResult = DateTime.TryParse(p, out dateTime);
+                if (parsingResult)
+                {
+                    parameters[key] = default(DateTime).ToString();
+                    continue;
+                }
+
+                var offsetParsingResult = DateTimeOffset.TryParse(p, out dateTimeOffset);
+                if (offsetParsingResult)
+                {
+                    parameters[key] = default(DateTimeOffset).ToString();
+                }
+            }
+            var uribuilder = new UriBuilder(_uri);
+            uribuilder.Query = parameters.ToString();
+            return uribuilder.Uri;
+        }
+
+        private string PrepareBody()
+        {
+            var result = _body;
+            result = Regex.Replace(result, DateTimeReplacementConstants.UtcDateTimePattern , @"""""");
+            result = Regex.Replace(result, DateTimeReplacementConstants.UtcDateTimeOffsetPattern, @"""""");
+            result = Regex.Replace(result, DateTimeReplacementConstants.DateTimePattern, @"""""");
+
+            return result;
         }
 
         private byte[] SHA1Bytes(string input)

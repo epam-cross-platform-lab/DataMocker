@@ -1,5 +1,8 @@
-﻿
-namespace DataMocker.Mock.DatesReplacing
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("DataMocker.Mock")]
+[assembly: InternalsVisibleTo("DataMocker.Tests.UnitTests")]
+namespace DataMocker.SharedModels.DatesReplacing
 {
 	internal class DateTimeReplacementConstants
 	{

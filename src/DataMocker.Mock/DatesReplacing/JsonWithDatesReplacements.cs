@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using DataMocker.SharedModels.DatesReplacing;
 using Newtonsoft.Json;
 
 [assembly: InternalsVisibleTo("DataMocker.Tests.UnitTests")]
