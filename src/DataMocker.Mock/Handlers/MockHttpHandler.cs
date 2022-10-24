@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
+using DataMocker.Mock.DatesReplacing;
 using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
@@ -118,7 +119,7 @@ namespace DataMocker.Mock.Handlers
                 return new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(data)
+                    Content = new StringContent(new JsonWithDatesReplacements(data).ToJsonWithDynamicDates())
                 };
             }
         }
