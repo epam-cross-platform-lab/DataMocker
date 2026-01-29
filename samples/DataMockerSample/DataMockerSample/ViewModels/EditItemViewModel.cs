@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DataMockerSample.Dto;
 using DataMockerSample.Services;
-using Xamarin.Forms;
 
 namespace DataMockerSample.ViewModels
 {

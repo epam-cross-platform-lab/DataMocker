@@ -1,20 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DataMockerSample</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+    <NoWarn>$(NoWarn);NETSDK1202</NoWarn>
+    <ApplicationId Condition="'$(TargetFramework)' == 'net10.0-ios'">com.epam.DataMockerSample</ApplicationId>
+    <ApplicationId Condition="'$(TargetFramework)' == 'net10.0-android'">com.epam.DataMockerSample</ApplicationId>
+    <EnableDefaultProgramMain Condition="'$(TargetFramework)' == 'net10.0-ios'">true</EnableDefaultProgramMain>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="DataMocker.Mock" Version="1.0.5" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
-    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="DataMocker.Mock" Version="1.0.12" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.30" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.30" />
+    <PackageReference Include="Autofac" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataMockerSample.Common\DataMockerSample.Common.csproj" />
     <ProjectReference Include="..\DataMockerSample.Mock\DataMockerSample.Mock.csproj" />
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <Compile Update="Resources\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -30,5 +41,14 @@
     <EmbeddedResource Update="Resources\AppResources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Pages\*.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
   </ItemGroup>
 </Project>

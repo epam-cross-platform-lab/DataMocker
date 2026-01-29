@@ -21,7 +21,6 @@ using Autofac;
 using DataMockerSample.Dto;
 using DataMockerSample.Pages;
 using DataMockerSample.Services;
-using Xamarin.Forms;
 
 namespace DataMockerSample.ViewModels
 {

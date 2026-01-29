@@ -18,13 +18,12 @@ using DataMockerSample.Common.Api;
 using DataMockerSample.Pages;
 using DataMockerSample.Services;
 using DataMockerSample.ViewModels;
-using Xamarin.Forms;
 
 namespace DataMockerSample
 {
     public partial class App : Application
     {
-        public static IContainer Container { get; private set; }
+        public static Autofac.IContainer Container { get; private set; }
 
         public App()
         {

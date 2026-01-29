@@ -13,28 +13,96 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
+using System;
 using NUnit.Framework;
-using Xamarin.UITest;
+using DataMocker.UITest;
 
 namespace DataMockerSample.UITests
 {
-    [TestFixture(Platform.Android)]
-    [TestFixture(Platform.iOS)]
-    public class BaseTest
+    /// <summary>
+    /// Base test class for MAUI UI tests.
+    /// This class provides integration with DataMocker framework.
+    /// </summary>
+    /// <remarks>
+    /// For MAUI UITest framework, you should inherit from UITestBase and call
+    /// InitializeDataMocker in your SetUp method, or inherit from this class
+    /// and set the Context and Device properties.
+    /// </remarks>
+    public abstract class BaseTest
     {
-        protected IApp app;
-        protected Platform platform;
+        /// <summary>
+        /// The MAUI UITestContext. This should be set by the test framework
+        /// (typically from UITestBase.Context in MAUI UITest framework).
+        /// </summary>
+        protected object? Context { get; set; }
 
-        public BaseTest(Platform platform)
-        {
-            this.platform = platform;
-        }
+        /// <summary>
+        /// The test device platform. This should be set by the test framework
+        /// (typically from UITestBase.Device in MAUI UITest framework).
+        /// </summary>
+        protected TestDevice Device { get; set; }
+
+        /// <summary>
+        /// Provides access to UI interaction methods through dynamic dispatch.
+        /// This property allows existing tests to continue using 'app' syntax.
+        /// </summary>
+        protected dynamic? app => Context;
 
         [SetUp]
-        public void BeforeEachTest()
+        public virtual void BeforeEachTest()
         {
-            app = AppInitializer.StartApp(platform);
-            DataMocker.UITest.TestInitializer.Initialize(app, platform, GetType());
+            if (Context == null)
+            {
+                throw new InvalidOperationException(
+                    "Context must be set. In MAUI UITest, set Context = base.Context in your constructor or override BeforeEachTest.");
+            }
+
+            // Map the device if not already set
+            if (Device == default)
+            {
+                Device = MapTestDevice();
+            }
+
+            // Wrap the context for DataMocker and initialize
+            var dataMockerContext = Context.AsUITestContext();
+            DataMocker.UITest.TestInitializer.Initialize(dataMockerContext, Device, GetType());
+        }
+
+        /// <summary>
+        /// Maps the test device. Override this if your framework uses a different TestDevice enum.
+        /// </summary>
+        protected virtual TestDevice MapTestDevice()
+        {
+            // Try to get Device property from the test framework
+            var deviceProperty = GetType().GetProperty("Device", 
+                System.Reflection.BindingFlags.Instance | 
+                System.Reflection.BindingFlags.Public | 
+                System.Reflection.BindingFlags.NonPublic);
+
+            if (deviceProperty != null)
+            {
+                var deviceValue = deviceProperty.GetValue(this);
+                if (deviceValue != null)
+                {
+                    return MapDeviceValue(deviceValue);
+                }
+            }
+
+            // Default to Android
+            return TestDevice.Android;
+        }
+
+        private TestDevice MapDeviceValue(object deviceValue)
+        {
+            var deviceString = deviceValue.ToString() ?? "";
+            return deviceString.ToLowerInvariant() switch
+            {
+                "android" => TestDevice.Android,
+                "ios" => TestDevice.iOS,
+                "windows" => TestDevice.Windows,
+                "mac" or "catalyst" => TestDevice.Mac,
+                _ => TestDevice.Android
+            };
         }
     }
 }

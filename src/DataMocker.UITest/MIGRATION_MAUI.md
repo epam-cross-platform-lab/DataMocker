@@ -6,7 +6,7 @@ This document describes the migration of DataMocker.UITest from Xamarin.UITest t
 
 ### 1. Project Structure
 - **Updated**: `DataMocker.UITest.csproj` to modern SDK-style format
-- **Target Frameworks**: Now supports `netstandard2.1`, `net8.0`, and `net9.0`
+- **Target Frameworks**: Now supports `netstandard2.1`, `net9.0`, and `net10.0`
 - **Removed**: Dependency on `Xamarin.UITest`
 - **Added**: `System.Text.Json` for JSON serialization (replacing Newtonsoft.Json)
 
@@ -119,7 +119,7 @@ DataMocker.UITest.TestDevice MapToDataMockerTestDevice(YourFramework.TestDevice 
 
 1. **Platform Enum**: Must migrate from `Xamarin.UITest.Platform` to `DataMocker.UITest.TestDevice`
 2. **IApp Interface**: Must migrate from `Xamarin.UITest.IApp` to `DataMocker.UITest.IUITestContext`
-3. **Target Framework**: Minimum .NET Standard 2.1 or .NET 8.0+
+3. **Target Framework**: Minimum .NET Standard 2.1 or .NET 9.0+
 4. **Package Version**: Bumped to 2.0.0 (major version change indicates breaking changes)
 
 ## Compatibility
