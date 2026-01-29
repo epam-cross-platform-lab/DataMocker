@@ -22,6 +22,7 @@ using DataMocker.SharedModels.Resources;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.MockServer.Dto;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace DataMocker.MockServer.Controllers
                 new ItemDto{Id=1,Title="Audi A4", Text="Germany"},
                 new ItemDto{Id=2,Title="Chevrolet Camaro", Text="USA"}
             };
-            return Newtonsoft.Json.JsonConvert.SerializeObject(list);
+            return JsonSerializer.Serialize(list);
         }
 
         private void RequestToConsole(MockRequest request)

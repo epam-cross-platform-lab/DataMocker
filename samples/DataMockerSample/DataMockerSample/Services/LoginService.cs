@@ -15,10 +15,10 @@
 // =========================================================================
 using System;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMockerSample.Common.Api;
 using DataMockerSample.Dto;
-using Newtonsoft.Json;
 
 namespace DataMockerSample.Services
 {
@@ -37,7 +37,7 @@ namespace DataMockerSample.Services
         {
             var response = await _api.PostAsync(new Uri("http://datamocker.com/login"),
                 new StringContent(
-                    JsonConvert.SerializeObject(new UserCreditsDto {UserName = username, Password = password})));
+                    JsonSerializer.Serialize(new UserCreditsDto {UserName = username, Password = password})));
 
             if (!response.IsSuccessStatusCode)
             {

@@ -16,7 +16,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Xamarin.UITest;
 
 namespace DataMocker.UITest
@@ -53,7 +53,7 @@ namespace DataMocker.UITest
                 using (var streamReader = new StreamReader(stream))
                 {
                     var cofigString = streamReader.ReadToEnd();
-                    return JsonConvert.DeserializeObject<MockFrameworkConfiguration>(cofigString);
+                    return JsonSerializer.Deserialize<MockFrameworkConfiguration>(cofigString);
                 }
             }
         }

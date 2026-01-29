@@ -14,7 +14,7 @@
 // limitations under the License.
 // =========================================================================
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace DataMocker.Tests.UnitTests
 {
@@ -53,7 +53,7 @@ namespace DataMocker.Tests.UnitTests
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonSerializer.Serialize(this);
         }
     }
 }

@@ -18,9 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using DataMocker.SharedModels;
-using Newtonsoft.Json;
 
 namespace DataMocker.Mock.GraphQL
 {
@@ -75,7 +75,7 @@ namespace DataMocker.Mock.GraphQL
         private string GraphQLFileName(Uri url)
         {
             var graphQLsegments = new List<string>();
-            GraphQLRequest requestBody = JsonConvert.DeserializeObject<GraphQLRequest>(graphQLBody);
+            GraphQLRequest requestBody = JsonSerializer.Deserialize<GraphQLRequest>(graphQLBody);
             if (!string.IsNullOrEmpty(requestBody.Query))
             {
                 var matches = Regex.Matches(requestBody.Query, GraphQLQueryNamePattern);

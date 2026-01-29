@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace DataMocker.UITest
 {
@@ -43,7 +43,7 @@ namespace DataMocker.UITest
 				WriteMode = !_mockDataServer.UseEmbeddedDevice && _mockDataServer.WriteMode,
 				AdditionalParams = _additioanalParams
             };
-            return JsonConvert.SerializeObject(args);
+            return JsonSerializer.Serialize(args);
 		}		
 	}
 }

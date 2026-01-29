@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using DataMocker.SharedModels.DatesReplacing;
-using Newtonsoft.Json;
 
 [assembly: InternalsVisibleTo("DataMocker.Tests.UnitTests")]
 namespace DataMocker.Mock.DatesReplacing
@@ -32,7 +32,7 @@ namespace DataMocker.Mock.DatesReplacing
             {
                 var timeSpanString = match.Value.Trim('"').Replace(DateTimeReplacementConstants.UtcDateOffsetReplacement, string.Empty);
                 var timespan = TimeSpan.Parse(timeSpanString);
-                var replacement = JsonConvert.SerializeObject(DateTimeOffset.UtcNow - timespan);
+                var replacement = JsonSerializer.Serialize(DateTimeOffset.UtcNow - timespan);
                 result = Regex.Replace(result, match.Value.Replace("+", @"\+"), replacement);
             }
 
@@ -47,7 +47,7 @@ namespace DataMocker.Mock.DatesReplacing
             {
                 var timeSpanString = match.Value.Trim('"').Replace(DateTimeReplacementConstants.DateReplacement, string.Empty);
                 var timeSpan = TimeSpan.Parse(timeSpanString);
-                var replacement = JsonConvert.SerializeObject(DateTime.Now - timeSpan);
+                var replacement = JsonSerializer.Serialize(DateTime.Now - timeSpan);
                 result = Regex.Replace(result, match.Value.Replace("+", @"\+"), replacement);
             }
 
@@ -62,7 +62,7 @@ namespace DataMocker.Mock.DatesReplacing
             {
                 var timeSpanString = match.Value.Trim('"').Replace(DateTimeReplacementConstants.UtcDateReplacement, string.Empty);
                 var timeSpan = TimeSpan.Parse(timeSpanString);
-                var replacement = JsonConvert.SerializeObject(DateTime.UtcNow - timeSpan);
+                var replacement = JsonSerializer.Serialize(DateTime.UtcNow - timeSpan);
                 result = Regex.Replace(result, match.Value.Replace("+", @"\+"), replacement);
             }
 

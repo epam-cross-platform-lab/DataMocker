@@ -15,11 +15,11 @@
 // =========================================================================
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.Mock;
 using DataMocker.Tests.UnitTests.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests
 {

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Text.Json;
 using System.Web;
 using DataMocker.SharedModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests
 {
@@ -43,7 +43,7 @@ namespace DataMocker.Tests.UnitTests
 
 
             // Act
-            IHashCode hash = new ResourceHashCode(uri, JsonConvert.SerializeObject(body));
+            IHashCode hash = new ResourceHashCode(uri, JsonSerializer.Serialize(body));
             IHashCode expectedHash = new ResourceHashCode(uri, bodyForExpectedResult);
 
             // Assert

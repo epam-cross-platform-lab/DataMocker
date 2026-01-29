@@ -16,11 +16,11 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
 using DataMocker.Mock.DatesReplacing;
-using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
 {
@@ -133,9 +133,10 @@ namespace DataMocker.Mock.Handlers
                 return response;
             }
 
+            var statusCodeString = await response.Content.ReadAsStringAsync();
             return new HttpResponseMessage
             {
-                StatusCode = JsonConvert.DeserializeObject<HttpStatusCode>(await response.Content.ReadAsStringAsync())
+                StatusCode = Enum.Parse<HttpStatusCode>(statusCodeString.Trim('"'), ignoreCase: true)
             };
         }
     }

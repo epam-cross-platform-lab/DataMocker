@@ -17,12 +17,12 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.Mock;
 using DataMocker.Mock.Handlers;
 using DataMocker.Test.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests
 {

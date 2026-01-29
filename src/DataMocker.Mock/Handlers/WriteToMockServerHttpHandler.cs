@@ -1,11 +1,11 @@
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
 using DataMocker.Mock.DatesReplacing;
-using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
 {
@@ -38,7 +38,7 @@ namespace DataMocker.Mock.Handlers
 
         private static StringContent HttpContent(SaveRequestContent content)
         {
-            return new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8,
+            return new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8,
                 "application/json");
         }
     }
