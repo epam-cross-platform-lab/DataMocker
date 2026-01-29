@@ -18,7 +18,6 @@ using DataMockerSample.Common.Api;
 using DataMockerSample.Pages;
 using DataMockerSample.Services;
 using DataMockerSample.ViewModels;
-using Xamarin.Forms;
 
 namespace DataMockerSample
 {

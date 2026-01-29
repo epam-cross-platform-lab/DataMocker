@@ -14,7 +14,6 @@
 // limitations under the License.
 // =========================================================================
 using DataMockerSample.Services;
-using Xamarin.Forms;
 
 namespace DataMockerSample.ViewModels
 {

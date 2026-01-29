@@ -15,7 +15,6 @@
 // =========================================================================
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 using Autofac;
 using DataMockerSample.Services;
 using DataMockerSample.Pages;
@@ -67,11 +66,11 @@ namespace DataMockerSample.ViewModels
             if (isLoggedIn)
             {
                 var ivm = App.Container.Resolve<ItemsViewModel>();
-                Application.Current.MainPage =
+                Application.Current!.MainPage =
                                new NavigationPage(new ItemsPage(ivm))
                     {
-                        BarTextColor = Color.Bisque,
-                        BarBackgroundColor = Color.DarkBlue
+                        BarTextColor = Colors.Bisque,
+                        BarBackgroundColor = Colors.DarkBlue
                     };
             }
             else
