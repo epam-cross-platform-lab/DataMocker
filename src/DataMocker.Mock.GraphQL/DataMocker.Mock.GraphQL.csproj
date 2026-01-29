@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net9.0;net10.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
-    <DocumentationFile>bin\Release\netstandard2.0\DataMocker.Mock.GraphQL.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\DataMocker.Mock.GraphQL.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="GraphQLQuery.cs" />
