@@ -17,17 +17,16 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
-using Xamarin.UITest;
 
 namespace DataMocker.UITest
 {
 	internal class AppEnvironmentConfiguration
 	{
-		private readonly IApp _app;
-		private readonly Platform _platform;
+		private readonly IUITestContext _app;
+		private readonly TestDevice _platform;
         private readonly Assembly _assembly;
 		
-		internal AppEnvironmentConfiguration(IApp app, Platform platform, Assembly assembly)
+		internal AppEnvironmentConfiguration(IUITestContext app, TestDevice platform, Assembly assembly)
 		{
 			_app = app;
 			_platform = platform;
@@ -38,24 +37,25 @@ namespace DataMocker.UITest
         {
             var mockConfig = GetMockFrameworkConfiguration(_assembly);
             var backdoorMethodName = mockConfig?.GetBackDoorName(_platform);
-            if (!string.IsNullOrWhiteSpace(backdoorMethodName))
+            if (!string.IsNullOrWhiteSpace(backdoorMethodName) && mockConfig != null)
             {
                 _app.Invoke(backdoorMethodName, new EnvironmentArguments(testMetaData, mockConfig, additionalParam).ToString());
             }
 
         }
 
-        private static MockFrameworkConfiguration GetMockFrameworkConfiguration(Assembly assembly)
+        private static MockFrameworkConfiguration? GetMockFrameworkConfiguration(Assembly assembly)
         {
-            using (var stream = assembly.GetManifestResourceStream(assembly.ManifestModule.Name.Replace("dll", string.Empty) + "MockFrameworkConfiguration.json")
-            )
+            var resourceName = assembly.ManifestModule.Name.Replace("dll", string.Empty) + "MockFrameworkConfiguration.json";
+            using var stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null)
             {
-                using (var streamReader = new StreamReader(stream))
-                {
-                    var cofigString = streamReader.ReadToEnd();
-                    return JsonSerializer.Deserialize<MockFrameworkConfiguration>(cofigString);
-                }
+                return null;
             }
+            
+            using var streamReader = new StreamReader(stream);
+            var configString = streamReader.ReadToEnd();
+            return JsonSerializer.Deserialize<MockFrameworkConfiguration>(configString);
         }
 	}
 }

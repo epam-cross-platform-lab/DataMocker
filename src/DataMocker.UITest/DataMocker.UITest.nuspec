@@ -2,29 +2,44 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>DataMocker.UITest</id>
-    <version>1.0.10</version>
+    <version>2.0.0</version>
     <authors>Andrei Melnikau, Dzianis Zhukouski</authors>
     <owners>EPAM Systems,Inc.</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/epam-xamarin-lab/DataMocker</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request.</description>
-   <tags>xamarin, android, xamarin.android, monodroid, ios, xamarin.ios, monotouch, xamarin.uitest, uitest</tags>
+    <description>Mock Data Framework helps you mock data for UI tests, without implementing mock classes. The framework simulates server for your application provides you unique data for every your unique http request. Migrated to support .NET MAUI UITests.</description>
+   <tags>maui, dotnet-maui, android, ios, windows, mac, uitest, appium, testing, mock</tags>
    <releaseNotes>
-      - Add possibility to use custom user parameter for providing to app some necessary info;
+      - Migrated to .NET MAUI UITest framework compatibility
+      - Replaced Xamarin.UITest with MAUI UITestContext abstraction
+      - Added support for Windows and Mac platforms
+      - Updated to modern SDK-style project format
+      - Added IUITestContext interface for MAUI compatibility
     </releaseNotes>
     <copyright>© 2022 EPAM Systems, Inc. All Rights Reserved.</copyright>
     <dependencies>
-      <group targetFramework="net461">
-        <dependency id="Xamarin.UITest" version="3.2.2" />
+      <group targetFramework="netstandard2.1">
         <dependency id="NUnit" version="3.13.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.1" />
+        <dependency id="System.Text.Json" version="8.0.0" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="NUnit" version="3.13.2" />
+        <dependency id="System.Text.Json" version="8.0.0" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="NUnit" version="3.13.2" />
+        <dependency id="System.Text.Json" version="8.0.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin/Release/DataMocker.UITest.dll" target="lib/net461"/>
-    <file src="bin/Release/DataMocker.UITest.xml" target="lib/net461"/>
+    <file src="bin/Release/netstandard2.1/DataMocker.UITest.dll" target="lib/netstandard2.1"/>
+    <file src="bin/Release/netstandard2.1/DataMocker.UITest.xml" target="lib/netstandard2.1"/>
+    <file src="bin/Release/net8.0/DataMocker.UITest.dll" target="lib/net8.0"/>
+    <file src="bin/Release/net8.0/DataMocker.UITest.xml" target="lib/net8.0"/>
+    <file src="bin/Release/net9.0/DataMocker.UITest.dll" target="lib/net9.0"/>
+    <file src="bin/Release/net9.0/DataMocker.UITest.xml" target="lib/net9.0"/>
     <file src="MockFrameworkConfiguration.json" target="content"/>
   </files>
 </package>

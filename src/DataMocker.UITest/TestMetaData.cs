@@ -34,17 +34,17 @@ namespace DataMocker.UITest
 		}
 
         protected internal TestMetaData(IList<string> testScenarios, string testName, Type testScenarioType)
-			: this(testScenarios, testName, TestLanguage(testScenarioType), testScenarioType)
+			: this(testScenarios, testName, TestLanguage(testScenarioType) ?? string.Empty, testScenarioType)
 		{
 		}
 
         protected  internal TestMetaData(IList<string> testScenarios, string testName, string language, Type testScenarioType) 
-            : this(testScenarios, testName, language ,TestScenarioNames.GetSharedFoledrsNames(testScenarioType), testScenarioType)
+            : this(testScenarios, testName, language, TestScenarioNames.GetSharedFoledrsNames(testScenarioType), testScenarioType)
         {
 
         }
 
-	    internal TestMetaData(IList<string> testScenarios, string testName, string language,IList<string> sharedFolderPath, Type testScenarioType)
+	    internal TestMetaData(IList<string> testScenarios, string testName, string language, IList<string> sharedFolderPath, Type testScenarioType)
         {
             TestScenarioType = testScenarioType;
             TestScenarios = testScenarios;
@@ -59,7 +59,7 @@ namespace DataMocker.UITest
 
 	    internal string TestName { get; private set; }
 
-	    internal string Language { get; private set; }
+	    internal string? Language { get; private set; }
 
 	    internal Type TestScenarioType { get; private set; }
 
@@ -68,7 +68,7 @@ namespace DataMocker.UITest
 			return TestContext.CurrentContext.Test.Name.Split('.').Last();
 		}
 
-        private static string TestLanguage(Type testType)
+        private static string? TestLanguage(Type testType)
 		{
             var languageAttribute = testType.GetCustomAttributes(typeof(LanguageAttribute), true).FirstOrDefault();
             var attribute = languageAttribute as LanguageAttribute;

@@ -24,10 +24,9 @@
   <ItemGroup>
     <ProjectReference Include="..\DataMocker.SharedModels\DataMocker.SharedModels.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Remove="DatesReplacing\" />
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DatesReplacing\" />
-  </ItemGroup>
+ 
 </Project>

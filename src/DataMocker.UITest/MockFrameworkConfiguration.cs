@@ -13,19 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
-using System.Configuration;
-using Xamarin.UITest;
-
 namespace DataMocker.UITest
 {   
-    /// <summary>Wrapper for the MockFrasmeworkConfiguration.json file.</summary>
+    /// <summary>Wrapper for the MockFrameworkConfiguration.json file.</summary>
     public class MockFrameworkConfiguration
     {
         /// <summary>
         /// Gets or sets the URL to the mock server.
         /// </summary>
         /// <value>The URL.</value>
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         /// <summary>
         /// Gets or sets the delay for mock server.
@@ -48,17 +45,36 @@ namespace DataMocker.UITest
 
         /// <summary>Gets or sets the android backdoor method.</summary>
         /// <value>The android backdoor method.</value>
-        public string AndroidBackdoorMethod { get; set; }
+        public string? AndroidBackdoorMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the ios backdoor method.
         /// </summary>
         /// <value>The ios backdoor method.</value>
-        public string IosBackdoorMethod { get; set; }
+        public string? IosBackdoorMethod { get; set; }
 
-        internal string GetBackDoorName(Platform platform)
+        /// <summary>
+        /// Gets or sets the windows backdoor method.
+        /// </summary>
+        /// <value>The windows backdoor method.</value>
+        public string? WindowsBackdoorMethod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mac backdoor method.
+        /// </summary>
+        /// <value>The mac backdoor method.</value>
+        public string? MacBackdoorMethod { get; set; }
+
+        internal string? GetBackDoorName(TestDevice platform)
         {
-            return platform == Platform.Android ? AndroidBackdoorMethod : IosBackdoorMethod;
+            return platform switch
+            {
+                TestDevice.Android => AndroidBackdoorMethod,
+                TestDevice.iOS => IosBackdoorMethod,
+                TestDevice.Windows => WindowsBackdoorMethod,
+                TestDevice.Mac => MacBackdoorMethod,
+                _ => null
+            };
         }
     }
 }

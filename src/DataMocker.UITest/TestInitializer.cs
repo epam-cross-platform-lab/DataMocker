@@ -17,23 +17,22 @@ using System;
 using System.Globalization;
 using System.Linq;
 using DataMocker.UITest.Attributes;
-using Xamarin.UITest;
 
 namespace DataMocker.UITest
 {
     /// <summary>Initialize test scenario before executing tests</summary>
     public class TestInitializer
     {
-        private static IApp App;
+        private static IUITestContext? App;
 
-        private static Platform Platform;
+        private static TestDevice Platform;
 
-        /// <summary>Initialize framework in the assumption of the instance ofthe current app and current platfom.</summary>
-        /// <param name="app">Current app.</param>
+        /// <summary>Initialize framework in the assumption of the instance of the current app and current platform.</summary>
+        /// <param name="app">Current app UITest context.</param>
         /// <param name="platform">Current platform.</param>
         /// <param name="testType">Current test type.</param>
         /// <param name="additionalParams">Additional user's params.</param>
-        public static void Initialize(IApp app, Platform platform, Type testType, string additionalParams = "")
+        public static void Initialize(IUITestContext app, TestDevice platform, Type testType, string additionalParams = "")
         {
             Platform = platform;
             App = app;
@@ -44,7 +43,7 @@ namespace DataMocker.UITest
         private static void SetupAppEnvironmentVariables(Type testType, string additionalParams)
         {
             var testMetaData = new TestMetaData(testType);
-            new AppEnvironmentConfiguration(App, Platform, testType.Assembly).Setup(testMetaData, additionalParams);
+            new AppEnvironmentConfiguration(App!, Platform, testType.Assembly).Setup(testMetaData, additionalParams);
         }
 
         private static void SetupTestLanguage(Type testType)
