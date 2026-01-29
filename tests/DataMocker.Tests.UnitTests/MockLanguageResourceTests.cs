@@ -16,10 +16,10 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.Tests.UnitTests.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests
 {
@@ -157,9 +157,9 @@ namespace DataMocker.Tests.UnitTests
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
             var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithFirstQuery))).PostAsync();
             var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -180,9 +180,9 @@ namespace DataMocker.Tests.UnitTests
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
             var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithFirstQuery))).PostAsync();
             var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);
@@ -203,9 +203,9 @@ namespace DataMocker.Tests.UnitTests
             //Act
             var args = new EnvironmentArgsString(testScenario, testName, MockFilesFormats.Json, language);
             var firstItem = await new ResourceRequest(urlWithFirstQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithFirstQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithFirstQuery))).PostAsync();
             var secondItem = await new ResourceRequest(urlWithSecondQuery, args.ToString(),
-                JsonConvert.SerializeObject(new Response(urlWithSecondQuery))).PostAsync();
+                JsonSerializer.Serialize(new Response(urlWithSecondQuery))).PostAsync();
 
             //Assert
             Assert.AreEqual(new Uri(firstItem.Url).LocalPath, new Uri(secondItem.Url).LocalPath);

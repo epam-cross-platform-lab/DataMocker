@@ -1,65 +1,39 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" />
-  <Import Project="..\..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props" Condition="Exists('..\..\packages\Xamarin.UITest.3.2.2\build\Xamarin.UITest.props')" />
-  <Import Project="..\..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
-  <Import Project="..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{190E0F1A-9307-415E-A8D8-5969B198B7FB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>DataMocker.UITest</RootNamespace>
     <AssemblyName>DataMocker.UITest</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <PackageId>DataMocker.UITest</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>DataMocker</Authors>
     <DevelopmentDependency>true</DevelopmentDependency>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Debug\DataMocker.UITest.xml</DocumentationFile>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\$(TargetFramework)\DataMocker.UITest.xml</DocumentationFile>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DataMocker.UITest.xml</DocumentationFile>
-    <ConsolePause>false</ConsolePause>
+    <DocumentationFile>bin\Release\$(TargetFramework)\DataMocker.UITest.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="Xamarin.UITest" Version="3.2.2" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Attributes\MockDataAttributePriority.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppEnvironmentConfiguration.cs" />
-    <Compile Include="EnvironmentArguments.cs" />
-    <Compile Include="MockFrameworkConfiguration.cs" />
-    <Compile Include="TestInitializer.cs" />
-    <Compile Include="TestMetaData.cs" />
-    <Compile Include="TestScenarioNames.cs" />
-    <Compile Include="Attributes\LanguageAttribute.cs" />
-    <Compile Include="Attributes\MockDataAttribute.cs" />
-    <Compile Include="MockFilesFormats.cs" />
-    <Compile Include="EnvironmentArgs.cs" />
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.1'">
+    <PackageReference Include="NUnit" Version="4.4.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="DataMocker.UITest.nuspec" />
-    <None Include="MockFrameworkConfiguration.json" />
+    <EmbeddedResource Include="MockFrameworkConfiguration.json" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
 </Project>

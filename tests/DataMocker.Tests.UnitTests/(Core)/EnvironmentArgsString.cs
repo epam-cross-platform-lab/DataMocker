@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace DataMocker.Tests.UnitTests.Core
 {
@@ -34,7 +34,7 @@ namespace DataMocker.Tests.UnitTests.Core
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(environment);
+            return JsonSerializer.Serialize(environment);
         }
     }
 }

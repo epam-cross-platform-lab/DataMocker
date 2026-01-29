@@ -16,9 +16,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using DataMocker.Mock;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json; 
+using Microsoft.VisualStudio.TestTools.UnitTesting; 
 
 namespace DataMocker.Tests.UnitTests
 {
@@ -73,7 +73,7 @@ namespace DataMocker.Tests.UnitTests
         {
             var arg= new EnvironmentArgs {TestName = testName,TestScenario = testScenario};
             var config = new MockEnvironmentConfig();
-            config.Initialize(JsonConvert.SerializeObject(arg));
+            config.Initialize(JsonSerializer.Serialize(arg));
             return config;
         }
     }

@@ -24,15 +24,15 @@ namespace DataMocker
     {
         /// <summary>Get or set name of the runned test.</summary>
         /// <returns>A name of the runned test.</returns>
-        public string TestName { get; set; }
+        public string TestName { get; set; } = string.Empty;
 
         /// <summary>Get or set list of current test scenarios.</summary>
         /// <returns>List of current test scenarios.</returns>
-        public IList<string> TestScenario { get; set; }
+        public IList<string> TestScenario { get; set; } = new List<string>();
 
         /// <summary>Gets or sets a list of shared folders.</summary>
         /// <returns>The shared folder path.</returns>
-        public IList<string> SharedFolderPath { get; set; }
+        public IList<string> SharedFolderPath { get; set; } = new List<string>();
 
         /// <summary>Get or set a value of delay for requests to the mock server.</summary>
         /// <returns>A value of delay for requests to the mock server.</returns>
@@ -41,11 +41,11 @@ namespace DataMocker
 
         /// <summary>Get or set current culture info name of the runned test.</summary>
         /// <returns>Current culture info name of the runned test.</returns>
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>Get or set the url of mock data server./// </summary>
         /// <returns>The url of mock data server.</returns>
-        public string RemoteUrl { get; set; }
+        public string? RemoteUrl { get; set; }
         
         /// <summary>
         /// Get or set read or write mode.
@@ -55,6 +55,6 @@ namespace DataMocker
         /// <summary>
         /// Gets or sets additional params.
         /// </summary>
-        public string AdditionalParams { get; set; }
+        public string AdditionalParams { get; set; } = string.Empty;
     }
 }

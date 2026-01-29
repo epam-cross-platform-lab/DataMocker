@@ -16,10 +16,10 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMockerSample.Common.Api;
 using DataMockerSample.Dto;
-using Newtonsoft.Json;
 
 namespace DataMockerSample.Services
 {
@@ -37,7 +37,7 @@ namespace DataMockerSample.Services
             var response = await _api.PostAsync(new Uri("http://datamocker.com/items"),
                 new StringContent(userToken));
 
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<IEnumerable<ItemDto>>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode ? JsonSerializer.Deserialize<IEnumerable<ItemDto>>(await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<ItemDto> GetItem(string userToken, int id)
@@ -45,13 +45,13 @@ namespace DataMockerSample.Services
             var response = await _api.PostAsync(new Uri("http://datamocker.com/items"+$"/{id}"),
                 new StringContent(userToken));
 
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<ItemDto>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode ? JsonSerializer.Deserialize<ItemDto>(await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<bool> PutItem(string userToken, ItemDto item)
         {
             var response = await _api.PutAsync(new Uri("http://datamocker.com/items" + $"/{item.Id}"),
-                new StringContent(userToken + JsonConvert.SerializeObject(item)));
+                new StringContent(userToken + JsonSerializer.Serialize(item)));
 
             return response.IsSuccessStatusCode;
         }

@@ -23,32 +23,20 @@ namespace DataMocker.UITest.Attributes
     public class LanguageAttribute : Attribute
     {
         /// <summary>Gets current test scenario's locale.</summary>
-        public CultureInfo CultureInfo
-        {
-            get;
-            private set;
-        }
+        public CultureInfo CultureInfo { get; }
 
         /// <summary>Initialize new instance of <see cref="T:DataMocker.UITest.Attributes.LanguageAttribute"/> from language name.</summary>
         /// <param name="langName">Name of the custom locale.</param>
         public LanguageAttribute(string langName)
         {
-            var c = new CultureInfo(langName);
-            if (c != null)
-            {
-                CultureInfo = c;
-            }
+            CultureInfo = new CultureInfo(langName);
         }
 
         /// <summary>Initialize new instance of <see cref="T:DataMocker.UITest.Attributes.LanguageAttribute"/> from language code.</summary>
         /// <param name="langCode">Code of custom locale.</param>
         public LanguageAttribute(int langCode)
         {
-            var c = new CultureInfo(langCode);
-            if (c != null)
-            {
-                CultureInfo = c;
-            }
+            CultureInfo = new CultureInfo(langCode);
         }
     }
 }

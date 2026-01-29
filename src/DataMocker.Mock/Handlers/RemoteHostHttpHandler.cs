@@ -20,9 +20,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.SharedModels;
-using Newtonsoft.Json;
 
 namespace DataMocker.Mock.Handlers
 {
@@ -63,7 +63,7 @@ namespace DataMocker.Mock.Handlers
 
         private static HttpContent HttpContent(MockRequest mockRequestData)
         {
-            return new StringContent(JsonConvert.SerializeObject(mockRequestData), Encoding.UTF8, "application/json");
+            return new StringContent(JsonSerializer.Serialize(mockRequestData), Encoding.UTF8, "application/json");
         }
     }
 }

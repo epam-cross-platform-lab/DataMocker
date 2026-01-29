@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace DataMocker.UITest
 {
@@ -34,16 +34,16 @@ namespace DataMocker.UITest
 		{
 			var args = new EnvironmentArgs
 			{
-				TestName = _testMetaData.TestName,
+				TestName = _testMetaData.TestName ?? string.Empty,
 				TestScenario = _testMetaData.TestScenarios,
 				SharedFolderPath = _testMetaData.SharedFolderPath,
 				Delay = _mockDataServer.Delay,
 				Language = _testMetaData.Language,
-				RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer?.Url : null,
+				RemoteUrl = !_mockDataServer.UseEmbeddedDevice ? _mockDataServer.Url : null,
 				WriteMode = !_mockDataServer.UseEmbeddedDevice && _mockDataServer.WriteMode,
-				AdditionalParams = _additioanalParams
+				AdditionalParams = _additioanalParams ?? string.Empty
             };
-            return JsonConvert.SerializeObject(args);
+            return JsonSerializer.Serialize(args);
 		}		
 	}
 }

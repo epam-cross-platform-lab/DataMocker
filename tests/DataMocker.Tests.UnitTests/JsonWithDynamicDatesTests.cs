@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using DataMocker.Mock.DatesReplacing;
 using DataMocker.SharedModels.DatesReplacing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests
 {
@@ -14,7 +14,7 @@ namespace DataMocker.Tests.UnitTests
         public void JsonWithDynamicDates_ToJsonWithDynamicDates_ReplacesUtcDates()
         {
             // Arrange
-            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonConvert.SerializeObject(DateTime.UtcNow));
+            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonSerializer.Serialize(DateTime.UtcNow));
 
             // Act
             var result = jsonWithDinamicDates.ToJsonWithDatesReplacements();
@@ -29,7 +29,7 @@ namespace DataMocker.Tests.UnitTests
         public void JsonWithDynamicDates_ToJsonWithDatesReplacements_ReplacesDates()
         {
             // Arrange
-            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonConvert.SerializeObject(DateTime.Now));
+            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonSerializer.Serialize(DateTime.Now));
 
             // Act
             var result = jsonWithDinamicDates.ToJsonWithDatesReplacements();
@@ -44,7 +44,7 @@ namespace DataMocker.Tests.UnitTests
         public void JsonWithDynamicDates_ToJsonWithDatesReplacements_ReplacesUtcDateOffsets()
         {
             // Arrange
-            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonConvert.SerializeObject(DateTimeOffset.UtcNow));
+            var jsonWithDinamicDates = new JsonWithDynamicDates(JsonSerializer.Serialize(DateTimeOffset.UtcNow));
 
             // Act
             var result = jsonWithDinamicDates.ToJsonWithDatesReplacements();

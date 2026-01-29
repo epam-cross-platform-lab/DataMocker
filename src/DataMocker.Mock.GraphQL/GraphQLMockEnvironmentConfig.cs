@@ -14,6 +14,7 @@
 // limitations under the License.
 // =========================================================================
 
+using System.Text.Json;
 using DataMocker.SharedModels.GraphQL;
 
 namespace DataMocker.Mock.GraphQL
@@ -53,7 +54,7 @@ namespace DataMocker.Mock.GraphQL
         {
             base.Initialize(args);
 
-            var environmentArguments = Newtonsoft.Json.JsonConvert.DeserializeObject<GraphQLEnvironmentArgs>(args);
+            var environmentArguments = JsonSerializer.Deserialize<GraphQLEnvironmentArgs>(args);
             if (environmentArguments != null)
             {
                 InitializeWithEnvironmentArgs(environmentArguments);

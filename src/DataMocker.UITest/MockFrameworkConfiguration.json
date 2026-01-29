@@ -4,5 +4,7 @@
   "UseEmbeddedDevice": true,
   "WriteMode": true,
   "AndroidBackdoorMethod": "SetupEnvironmentBackdoors",
-  "IosBackdoorMethod": "setupEnvironmentBackdoors:"
+  "IosBackdoorMethod": "setupEnvironmentBackdoors:",
+  "WindowsBackdoorMethod": "SetupEnvironmentBackdoors",
+  "MacBackdoorMethod": "SetupEnvironmentBackdoors"
 }

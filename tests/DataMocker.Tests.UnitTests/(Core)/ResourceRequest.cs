@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DataMocker.Mock;
 using DataMocker.Mock.Handlers;
 using DataMocker.Test.Data;
-using Newtonsoft.Json;
 
 namespace DataMocker.Tests.UnitTests.Core
 {
@@ -39,7 +39,7 @@ namespace DataMocker.Tests.UnitTests.Core
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Response>(result);
+                return JsonSerializer.Deserialize<Response>(result);
             }
         }
 
@@ -55,7 +55,7 @@ namespace DataMocker.Tests.UnitTests.Core
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Response>(result);
+                return JsonSerializer.Deserialize<Response>(result);
             }
         }
 
@@ -66,7 +66,7 @@ namespace DataMocker.Tests.UnitTests.Core
                 var response = await client.PutAsync(
                     url,
                     new StringContent(
-                        JsonConvert.SerializeObject(new Response(url))
+                        JsonSerializer.Serialize(new Response(url))
                     )
                 );
 

@@ -26,11 +26,12 @@ namespace DataMocker.UITest
         {
             var scenarionNames = new List<string>();
             Type objectType = typeof(object);
+            Type? currentType = testScenarionType;
             do
             {
-                scenarionNames.Add(testScenarionType.Name);
-                testScenarionType = testScenarionType.BaseType;
-            } while (testScenarionType != null && testScenarionType != objectType);
+                scenarionNames.Add(currentType.Name);
+                currentType = currentType.BaseType;
+            } while (currentType != null && currentType != objectType);
             scenarionNames.Reverse();
             return scenarionNames;
         }
