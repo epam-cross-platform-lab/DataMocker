@@ -23,7 +23,7 @@ namespace DataMockerSample
 {
     public partial class App : Application
     {
-        public static IContainer Container { get; private set; }
+        public static Autofac.IContainer Container { get; private set; }
 
         public App()
         {

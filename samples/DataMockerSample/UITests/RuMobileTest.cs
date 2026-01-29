@@ -14,14 +14,14 @@
 // limitations under the License.
 // =========================================================================
 using DataMocker.UITest.Attributes;
-using Xamarin.UITest;
+using DataMocker.UITest;
 
 namespace DataMockerSample.UITests
 {
     [Language("ru")]
     public class RuMobileTest : MobileTest
     {
-        public RuMobileTest(Platform platform) : base(platform)
+        public RuMobileTest(TestDevice device) : base(device)
         {
         }
     }

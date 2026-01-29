@@ -14,34 +14,41 @@
 // limitations under the License.
 // =========================================================================
 using System;
-using System.IO;
-using System.Linq;
-using Xamarin.UITest;
-using Xamarin.UITest.Queries;
+using DataMocker.UITest;
 
 namespace DataMockerSample.UITests
 {
-    public class AppInitializer
+    /// <summary>
+    /// App initializer for MAUI UI tests.
+    /// </summary>
+    /// <remarks>
+    /// In MAUI UITest framework, app initialization is typically handled by the test framework itself.
+    /// This class provides helper methods if custom initialization is needed.
+    /// </remarks>
+    public static class AppInitializer
     {
-        public static IApp StartApp(Platform platform)
+        /// <summary>
+        /// Gets the app package identifier for the specified platform.
+        /// </summary>
+        public static string GetAppPackageId(TestDevice device)
         {
-            if (platform == Platform.Android)
+            return device switch
             {
-                return ConfigureApp
-                    .Android
-                    .PreferIdeSettings()
-                    .EnableLocalScreenshots()
-                    .InstalledApp("com.epam.DataMockerSample")
-                    .StartApp();
-            }
+                TestDevice.Android => "com.epam.DataMockerSample",
+                TestDevice.iOS => "com.epam.DataMockerSample",
+                TestDevice.Windows => "com.epam.DataMockerSample",
+                TestDevice.Mac => "com.epam.DataMockerSample",
+                _ => throw new NotSupportedException($"Device {device} is not supported")
+            };
+        }
 
-            return ConfigureApp
-                .iOS
-                .PreferIdeSettings()
-                .EnableLocalScreenshots()
-                .InstalledApp("com.epam.DataMockerSample")
-                .DeviceIdentifier("06FACE51-369A-4AD2-9591-377A87A39982")
-                .StartApp();
+        /// <summary>
+        /// Gets the device identifier for iOS (if needed).
+        /// </summary>
+        public static string? GetIOSDeviceIdentifier()
+        {
+            // Return null to use default device, or specify a device identifier
+            return null; // "06FACE51-369A-4AD2-9591-377A87A39982"
         }
     }
 }

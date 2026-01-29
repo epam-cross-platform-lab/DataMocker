@@ -23,7 +23,7 @@
         <dependency id="NUnit" version="3.13.2" />
         <dependency id="System.Text.Json" version="8.0.0" />
       </group>
-      <group targetFramework="net8.0">
+      <group targetFramework="net10.0">
         <dependency id="NUnit" version="3.13.2" />
         <dependency id="System.Text.Json" version="8.0.0" />
       </group>
@@ -36,8 +36,8 @@
   <files>
     <file src="bin/Release/netstandard2.1/DataMocker.UITest.dll" target="lib/netstandard2.1"/>
     <file src="bin/Release/netstandard2.1/DataMocker.UITest.xml" target="lib/netstandard2.1"/>
-    <file src="bin/Release/net8.0/DataMocker.UITest.dll" target="lib/net8.0"/>
-    <file src="bin/Release/net8.0/DataMocker.UITest.xml" target="lib/net8.0"/>
+    <file src="bin/Release/net10.0/DataMocker.UITest.dll" target="lib/net10.0"/>
+    <file src="bin/Release/net10.0/DataMocker.UITest.xml" target="lib/net10.0"/>
     <file src="bin/Release/net9.0/DataMocker.UITest.dll" target="lib/net9.0"/>
     <file src="bin/Release/net9.0/DataMocker.UITest.xml" target="lib/net9.0"/>
     <file src="MockFrameworkConfiguration.json" target="content"/>

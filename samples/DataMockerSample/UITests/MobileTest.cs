@@ -13,19 +13,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // =========================================================================
+using System;
 using NUnit.Framework;
-using Xamarin.UITest;
+using DataMocker.UITest;
 using DataMockerSample.UITests.Constants;
 using DataMockerSample.UITests.Resources;
 
 namespace DataMockerSample.UITests
 {
-    [TestFixture(Platform.Android)]
-    [TestFixture(Platform.iOS)]
+    [TestFixture(TestDevice.Android)]
+    [TestFixture(TestDevice.iOS)]
     public class MobileTest : BaseTest
     {
-        public MobileTest(Platform platform):base(platform)
+        public MobileTest(TestDevice device)
         {
+            Device = device;
+        }
+
+        [SetUp]
+        public override void BeforeEachTest()
+        {
+            // In MAUI UITest, you would typically get Context from UITestBase.Context
+            // For example: Context = base.Context;
+            // This is a placeholder - actual implementation depends on your MAUI test framework
+            if (Context == null)
+            {
+                throw new InvalidOperationException(
+                    "Context must be set. In MAUI UITest framework, set Context = base.Context in your SetUp method or constructor.");
+            }
+
+            base.BeforeEachTest();
         }
 
         [Test]
@@ -62,19 +79,19 @@ namespace DataMockerSample.UITests
             app.EnterText(TestResources.LoginScreen_PasswordPlaceholderText, TestResources.CommonUser_Password);
             app.Tap(TestResources.LoginScreen_LoginButtonText);
             app.Tap(TestResources.ItemsPage_FirstElementTitle);
-            if (platform == Platform.Android) 
+            if (Device == TestDevice.Android) 
             {
               app.ClearText(TestResources.ItemPage_FirstDescrtiptionOldText);
               app.EnterText(TestResources.ItemPage_FirstDescriptionNewText);
             }
-            else if (platform == Platform.iOS)  
+            else if (Device == TestDevice.iOS)  
             {
-                app.ClearText(c => c.Id("ItemDescription"));
-                app.EnterText(c => c.Id("ItemDescription"),TestResources.ItemPage_FirstDescriptionNewText);
+                Func<dynamic, dynamic> idSelector = c => c.Id("ItemDescription");
+                app.ClearText(idSelector);
+                app.EnterText(idSelector, TestResources.ItemPage_FirstDescriptionNewText);
             }
             app.Tap(TestResources.ItemPage_SaveButtonText);
             app.WaitForElement(TestResources.ItemsPage_FirstElementTitle,"Item did'n changed");
         }
     }
 }
-

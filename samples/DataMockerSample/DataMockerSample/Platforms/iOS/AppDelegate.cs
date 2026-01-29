@@ -14,12 +14,15 @@
 // limitations under the License.
 // =========================================================================
 using Foundation;
+using Microsoft.Maui;
 
 namespace DataMockerSample;
 
 [Register("AppDelegate")]
 public partial class AppDelegate : MauiUIApplicationDelegate
 {
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
     [Export("setupEnvironmentBackdoors:")]
     public NSString SetupEnvironmentBackdoors(NSString value)
     {
